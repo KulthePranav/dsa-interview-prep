@@ -47,6 +47,9 @@ NeetCode 150 Roadmap
 
 ## Progress Tracker
 
-See:
+📈 [Progress Tracker](./PROGRESS.md)
 
-PROGRESS.md
+## Repository Resources
+
+📚 [Pattern Recognition Notes](./notes/patterns.md)
+
