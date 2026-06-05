@@ -68,9 +68,6 @@ Hash Maps allow constant-time lookups, converting a brute-force O(n²) search in
 - n = number of strings
 - k = average length of string
 
-**Key Learning:**
-A tuple is hashable and can represent a character frequency signature.
-
 **Recognition:**
 - Need to group words.
 - Order of characters doesn't matter.
@@ -120,3 +117,44 @@ defaultdict(int)    # Frequency counting
 
 **Key Learning:**
 A frequency count tuple can be used as a hashable signature for anagrams.
+
+## 347. Top K Frequent Elements
+
+**Pattern:** Bucket Sort + Frequency Count
+
+**Signal:**
+- Need top K frequent items.
+- Frequency is more important than ordering.
+- Better than sorting all elements.
+
+**Approach:**
+1. Count frequencies using a hash map.
+2. Create frequency buckets.
+3. Store numbers in buckets according to frequency.
+4. Iterate buckets in reverse order.
+5. Collect first k elements.
+
+**Template:**
+
+```python
+count = {}
+
+for n in nums:
+    count[n] = count.get(n, 0) + 1
+
+freq = [[] for _ in range(len(nums) + 1)]
+
+for n, c in count.items():
+    freq[c].append(n)
+
+for i in range(len(freq) - 1, 0, -1):
+    for n in freq[i]:
+        result.append(n)
+```
+
+**Time:** O(n)
+
+**Space:** O(n)
+
+**Key Learning:**
+Bucket Sort is useful when values represent frequencies within a limited range.
