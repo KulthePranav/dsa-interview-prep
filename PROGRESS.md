@@ -6,9 +6,9 @@
 - [x] Valid Anagram
 - [x] Two Sum
 - [x] Group Anagrams
-- [ ] Top K Frequent Elements
-- [ ] Encode and Decode Strings
-- [ ] Product of Array Except Self
+- [x] Top K Frequent Elements
+- [x] Encode and Decode Strings
+- [x] Product of Array Except Self
 - [ ] Valid Sudoku
 - [ ] Longest Consecutive Sequence
 
