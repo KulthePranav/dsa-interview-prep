@@ -195,3 +195,40 @@ word = encoded[j+1:j+1+length]
 **Key Learning:**
 Store metadata (length) before the data itself.
 This avoids delimiter collision issues.
+
+## 238. Product of Array Except Self
+
+**Pattern:** Prefix & Postfix Products
+
+**Signal:**
+- Need values from both left and right sides.
+- Division is not allowed.
+- Looking for O(n) solution.
+
+**Approach:**
+1. Store prefix products in the result array.
+2. Traverse backwards while maintaining a postfix product.
+3. Multiply prefix and postfix products together.
+
+**Template:**
+
+```python
+res = [1] * n
+
+prefix = 1
+for i in range(n):
+    res[i] = prefix
+    prefix *= nums[i]
+
+postfix = 1
+for i in range(n - 1, -1, -1):
+    res[i] *= postfix
+    postfix *= nums[i]
+```
+
+**Time:** O(n)
+
+**Space:** O(1) extra space
+
+**Key Learning:**
+Use Prefix & Postfix Products when each position depends on elements on both sides.
