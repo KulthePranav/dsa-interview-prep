@@ -158,3 +158,40 @@ for i in range(len(freq) - 1, 0, -1):
 
 **Key Learning:**
 Bucket Sort is useful when values represent frequencies within a limited range.
+
+## 271. Encode and Decode Strings
+
+**Pattern:** String Encoding / Length Prefix
+
+**Signal:**
+- Need to serialize and deserialize strings.
+- Strings may contain special characters.
+- Need a lossless conversion.
+
+**Approach:**
+1. Encode each string as:
+   length#string
+2. During decoding:
+   - Read digits until '#'
+   - Extract the length
+   - Read exactly that many characters
+3. Repeat until the entire encoded string is processed.
+
+**Template:**
+
+```python
+# Encode
+encoded += str(len(word)) + "#" + word
+
+# Decode
+length = int(encoded[i:j])
+word = encoded[j+1:j+1+length]
+```
+
+**Time:** O(n)
+
+**Space:** O(n)
+
+**Key Learning:**
+Store metadata (length) before the data itself.
+This avoids delimiter collision issues.
