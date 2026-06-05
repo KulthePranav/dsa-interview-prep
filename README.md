@@ -17,7 +17,7 @@ A structured collection of Data Structures & Algorithms solutions, notes, and in
 
 | Topic | Solved |
 |--------|--------|
-| Arrays & Hashing | 3 |
+| Arrays & Hashing | 7 |
 | Two Pointers | 0 |
 | Sliding Window | 0 |
 | Stack | 0 |
