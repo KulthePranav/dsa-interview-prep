@@ -9,8 +9,8 @@
 - [x] Top K Frequent Elements
 - [x] Encode and Decode Strings
 - [x] Product of Array Except Self
-- [ ] Valid Sudoku
-- [ ] Longest Consecutive Sequence
+- [x] Valid Sudoku
+- [x] Longest Consecutive Sequence
 
 ## Two Pointers
 
