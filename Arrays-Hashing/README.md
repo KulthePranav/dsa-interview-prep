@@ -10,6 +10,7 @@
 | 6 | Encode and Decode Strings | Medium | Length Prefix Encoding |
 | 7 | Product of Array Except Self | Medium | Prefix & Postfix Products |
 | 8 | Valid Sudoku | Medium | Hash Set Validation |
+| 9 | Longest Consecutive Sequence | Medium | Hash Set |
  
 
 
@@ -21,3 +22,4 @@
 - Frequency Counting
 - Prefix Sum
 - Bucket Sort
+- Hash Set
