@@ -279,3 +279,40 @@ This uniquely identifies each of the 9 sub-boxes.
 **Key Learning:**
 Multiple constraints can often be validated independently using separate hash sets
 
+## 128. Longest Consecutive Sequence
+
+**Pattern:** Hash Set
+
+**Signal:**
+- Need O(n) lookup.
+- Consecutive values matter.
+- Array is unsorted.
+
+**Approach:**
+1. Insert all numbers into a hash set.
+2. Identify sequence starts:
+   - num - 1 is not present.
+3. Expand the sequence forward.
+4. Track the maximum length.
+
+**Template:**
+
+```python
+num_set = set(nums)
+
+for num in num_set:
+    if num - 1 not in num_set:
+        length = 1
+
+        while num + length in num_set:
+            length += 1
+```
+
+**Time:** O(n)
+
+**Space:** O(n)
+
+**Key Learning:**
+Only begin counting from sequence starts.
+This guarantees each number is processed once.
+
