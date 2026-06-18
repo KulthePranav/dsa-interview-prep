@@ -19,7 +19,7 @@ Approach:
 5. Otherwise, add the value to all three sets.
 
 Time Complexity:
-O(81) = O(1)
+O(81) = O(1)  # 9*9 = 81
 
 Space Complexity:
 O(81) = O(1)
