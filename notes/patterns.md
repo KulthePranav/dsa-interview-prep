@@ -232,3 +232,50 @@ for i in range(n - 1, -1, -1):
 
 **Key Learning:**
 Use Prefix & Postfix Products when each position depends on elements on both sides.
+
+## 36. Valid Sudoku
+
+**Pattern:** Hash Set Validation
+
+**Signal:**
+- Need to detect duplicates across multiple dimensions.
+- Validation problem rather than construction problem.
+
+**Approach:**
+1. Track seen values for each row.
+2. Track seen values for each column.
+3. Track seen values for each 3×3 box.
+4. If a value already exists in any of them, return False.
+
+**Template:**
+
+```python
+rows = defaultdict(set)
+cols = defaultdict(set)
+boxes = defaultdict(set)
+
+box = (r // 3, c // 3)
+```
+### Sudoku Box Identification
+
+```python
+box = (r // 3, c // 3)
+```
+
+Examples:
+```
+(0,0) -> (0,0)
+(1,2) -> (0,0)
+(4,7) -> (1,2)
+(8,8) -> (2,2)
+```
+
+This uniquely identifies each of the 9 sub-boxes.
+
+**Time:** O(81)
+
+**Space:** O(81)
+
+**Key Learning:**
+Multiple constraints can often be validated independently using separate hash sets
+
