@@ -111,3 +111,19 @@ Only start from sequence beginnings.
 Move two pointers inward while skipping unwanted characters.
 
 ---
+
+## 167. Two Sum II - Input Array Is Sorted
+→ Two Pointers
+
+**Signal:**
+Sorted array + pair search
+
+**Rule:**
+- sum < target  -> move left pointer
+- sum > target  -> move right pointer
+- sum = target  -> answer found
+
+**Key Learning:**
+Sorted arrays often allow replacing Hash Maps with Two Pointers.
+
+---
