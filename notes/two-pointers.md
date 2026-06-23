@@ -167,3 +167,122 @@ Answer = [1, 2]
 Whenever the array is sorted and you need a pair satisfying a condition, think Two Pointers before Hash Map.
 
 ---
+
+## 15. 3Sum
+
+**Pattern:** Sorting + Two Pointers
+
+**Signal:**
+- Need triplets that satisfy a condition.
+- Array can be sorted first.
+- Need unique triplets.
+
+**Approach:**
+1. Sort the array.
+2. Fix one element.
+3. Use two pointers on the remaining array.
+4. Skip duplicates for both the fixed element and pointer values.
+5. Add valid triplets to the result.
+
+**Template:**
+
+```python
+nums.sort()
+
+for i, n in enumerate(nums):
+
+    if i > 0 and nums[i - 1] == n:
+        continue
+
+    l, r = i + 1, len(nums) - 1
+
+    while l < r:
+        three_sum = n + nums[l] + nums[r]
+
+        if three_sum == 0:
+            res.append([n, nums[l], nums[r]])
+
+            l += 1
+
+            while l < r and nums[l] == nums[l - 1]:
+                l += 1
+
+        elif three_sum < 0:
+            l += 1
+
+        else:
+            r -= 1
+```
+
+### Duplicate Handling
+
+#### Fixed Element
+
+```python
+if i > 0 and nums[i - 1] == nums[i]:
+    continue
+```
+
+Avoids:
+
+```text
+[-1, 0, 1]
+[-1, 0, 1]
+```
+
+being added twice.
+
+#### Left Pointer
+
+```python
+while l < r and nums[l] == nums[l - 1]:
+    l += 1
+```
+
+Skips duplicate second elements.
+
+### Alternative Solution
+
+Brute Force:
+
+```python
+for i:
+    for j:
+        for k:
+```
+
+Time: O(n³)
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Sorting + Two Pointers | O(n²) | O(1)* |
+| Brute Force | O(n³) | O(1) |
+
+\* Ignoring output array.
+
+### Visualization
+
+```text
+nums = [-4,-1,-1,0,1,2]
+
+Fix -1
+
+l = -1
+r = 2
+
+-1 + -1 + 2 = 0
+
+Triplet Found:
+[-1,-1,2]
+```
+
+**Time:** O(n²)
+
+**Space:** O(1) extra space
+
+**Key Learning:**
+Many 3-element problems can be reduced to a series of Two Sum problems after sorting.
+
+---
