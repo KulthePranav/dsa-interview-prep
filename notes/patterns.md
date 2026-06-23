@@ -127,3 +127,16 @@ Sorted array + pair search
 Sorted arrays often allow replacing Hash Maps with Two Pointers.
 
 ---
+
+## 15. 3Sum
+→ Sorting + Two Pointers
+
+**Signal:**
+- Need triplets instead of pairs.
+- Array can be sorted.
+- Need to avoid duplicate results.
+
+**Key Learning:**
+Fix one element and use Two Pointers to find the remaining pair.
+
+---
