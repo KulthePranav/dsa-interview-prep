@@ -14,9 +14,12 @@
 
 ## Two Pointers
 
-- [ ] Valid Palindrome
-- [ ] Two Sum II
+- [x] Valid Palindrome
+- [x] Two Sum II
+- [x] 3Sum
 - [ ] Container With Most Water
+- [ ] Trapping Rain Water
+
 
 ## Sliding Window
 
