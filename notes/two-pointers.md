@@ -98,24 +98,6 @@ Two pointers are ideal when comparing elements from both ends of a string or arr
 **Template:**
 
 ```python
-l, r = 0, len(nums) - 1
-
-while l < r:
-    current_sum = nums[l] + nums[r]
-
-    if current_sum == target:
-        return [l, r]
-
-    elif current_sum < target:
-        l += 1
-
-    else:
-        r -= 1
-```
-
-**Actual Solution:**
-
-```python
 l, r = 0, len(numbers) - 1
 
 while l < r:
