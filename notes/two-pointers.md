@@ -19,19 +19,6 @@
 **Template:**
 
 ```python
-l, r = 0, len(s) - 1
-
-while l < r:
-    if s[l] != s[r]:
-        return False
-
-    l += 1
-    r -= 1
-```
-
-**Actual Logic:**
-
-```python
 while l < r:
     while l < r and not is_al_num(s[l]):
         l += 1
@@ -286,3 +273,126 @@ Triplet Found:
 Many 3-element problems can be reduced to a series of Two Sum problems after sorting.
 
 ---
+
+## 11. Container With Most Water
+
+**Pattern:** Greedy + Two Pointers
+
+**Signal:**
+- Need maximum area from two boundaries.
+- Brute force would check all pairs.
+- Looking for O(n) solution.
+
+**Approach:**
+1. Place one pointer at the beginning and one at the end.
+2. Calculate the current area.
+3. Update the maximum area.
+4. Move the pointer with the smaller height.
+5. Continue until pointers meet.
+
+**Formula:**
+
+```python
+area = width * height
+
+area = (r - l) * min(height[l], height[r])
+```
+
+**Template:**
+
+```python
+max_area = 0
+
+l, r = 0, len(height) - 1
+
+while l < r:
+    area = (r - l) * min(height[l], height[r])
+
+    max_area = max(max_area, area)
+
+    if height[l] < height[r]:
+        l += 1
+    else:
+        r -= 1
+
+return max_area
+```
+
+### Why Move the Smaller Height?
+
+Current area:
+
+```text
+Area = Width × Min(left_height, right_height)
+```
+
+The smaller height limits the area.
+
+Example:
+
+```text
+[1,8,6,2,5,4,8,3,7]
+
+l = 1
+r = 7
+
+Area = width × min(1,7)
+
+The height 1 is limiting us.
+Moving height 7 cannot increase area.
+```
+
+Therefore:
+
+```python
+if height[l] < height[r]:
+    l += 1
+else:
+    r -= 1
+```
+
+### Alternative Solution
+
+Brute Force:
+
+```python
+for i in range(n):
+    for j in range(i + 1, n):
+        area = (j - i) * min(height[i], height[j])
+```
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Two Pointers | O(n) | O(1) |
+| Brute Force | O(n²) | O(1) |
+
+### Visualization
+
+```text
+height = [1,8,6,2,5,4,8,3,7]
+
+l = 0
+r = 8
+
+Area = 8 × min(1,7)
+Area = 8
+
+Move l
+
+l = 1
+r = 8
+
+Area = 7 × min(8,7)
+Area = 49
+
+Maximum = 49
+```
+
+**Time:** O(n)
+
+**Space:** O(1)
+
+**Key Learning:**
+The limiting factor is always the smaller height. Move that pointer to potentially find a taller boundary.
