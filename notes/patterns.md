@@ -140,3 +140,16 @@ Sorted arrays often allow replacing Hash Maps with Two Pointers.
 Fix one element and use Two Pointers to find the remaining pair.
 
 ---
+
+## 11. Container With Most Water
+→ Greedy + Two Pointers
+
+**Signal:**
+- Need maximum area between two boundaries.
+- Width decreases as pointers move.
+- Need optimal pair, not all pairs.
+
+**Key Learning:**
+Always move the smaller height because the larger height is not the limiting factor.
+
+---
