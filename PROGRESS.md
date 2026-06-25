@@ -17,8 +17,8 @@
 - [x] Valid Palindrome
 - [x] Two Sum II
 - [x] 3Sum
-- [ ] Container With Most Water
-- [ ] Trapping Rain Water
+- [x] Container With Most Water
+- [x] Trapping Rain Water
 
 
 ## Sliding Window
