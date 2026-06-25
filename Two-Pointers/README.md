@@ -18,3 +18,5 @@
 - Duplicate Handling
 - Greedy Decisions
 - Space Optimization (O(1))
+- Left Max / Right Max
+- Prefix vs Two Pointer Optimization
