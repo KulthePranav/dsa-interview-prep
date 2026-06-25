@@ -396,3 +396,207 @@ Maximum = 49
 
 **Key Learning:**
 The limiting factor is always the smaller height. Move that pointer to potentially find a taller boundary.
+
+---
+
+## 42. Trapping Rain Water
+
+**Pattern:** Two Pointers
+
+**Signal:**
+- Need information from both left and right sides.
+- Water trapped depends on surrounding boundaries.
+- Want O(n) time and O(1) extra space.
+
+**Approach:**
+1. Maintain two pointers:
+   - Left pointer
+   - Right pointer
+2. Track:
+   - left_max
+   - right_max
+3. The smaller boundary determines trapped water.
+4. Move the pointer with the smaller maximum.
+5. Add trapped water at each position.
+
+**Formula:**
+
+```python
+water = min(left_max, right_max) - height[i]
+```
+
+### Brute Force Idea
+
+For every position:
+
+```python
+left_max = max(height[:i])
+right_max = max(height[i+1:])
+```
+
+Then:
+
+```python
+water = min(left_max, right_max) - height[i]
+```
+
+Time:
+
+```text
+O(n²)
+```
+
+### Better Approach (Prefix Max Arrays)
+
+```python
+max_left = [0] * n
+max_right = [0] * n
+```
+
+Store maximum heights from both directions.
+
+```python
+max_left[i]
+max_right[i]
+```
+
+Then:
+
+```python
+water = min(max_left[i], max_right[i]) - height[i]
+```
+
+Time:
+
+```text
+O(n)
+```
+
+Space:
+
+```text
+O(n)
+```
+
+### Optimal Two Pointer Approach
+
+Observation:
+
+```text
+Water depends on the smaller boundary.
+```
+
+If:
+
+```python
+left_max < right_max
+```
+
+Then:
+
+```python
+water = left_max - height[l]
+```
+
+because right side is guaranteed to be taller.
+
+Similarly:
+
+```python
+right_max < left_max
+```
+
+Then:
+
+```python
+water = right_max - height[r]
+```
+
+### Template
+
+```python
+l, r = 0, len(height) - 1
+
+left_max = height[l]
+right_max = height[r]
+
+water = 0
+
+while l < r:
+
+    if left_max < right_max:
+
+        l += 1
+
+        left_max = max(left_max, height[l])
+
+        water += left_max - height[l]
+
+    else:
+
+        r -= 1
+
+        right_max = max(right_max, height[r])
+
+        water += right_max - height[r]
+
+return water
+```
+
+### Visualization
+
+```text
+height = [4,2,0,3,2,5]
+
+left_max = 4
+right_max = 5
+
+Move Left
+
+Water at 2:
+4 - 2 = 2
+
+Water at 0:
+4 - 0 = 4
+
+Water at 3:
+4 - 3 = 1
+
+Water at 2:
+4 - 2 = 2
+
+Total = 9
+```
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Two Pointers | O(n) | O(1) |
+| Prefix Arrays | O(n) | O(n) |
+| Brute Force | O(n²) | O(1) |
+
+
+### Pattern Recognition
+
+```text
+Need left and right information?
+
+Think:
+
+Prefix / Postfix
+
+Can it be optimized?
+
+Think:
+
+Two Pointers
+```
+
+**Time:** O(n)
+
+**Space:** O(1)
+
+**Key Learning:**
+The smaller boundary always determines the trapped water.
+This allows us to process the array using two pointers instead of extra arrays.
