@@ -153,3 +153,15 @@ Fix one element and use Two Pointers to find the remaining pair.
 Always move the smaller height because the larger height is not the limiting factor.
 
 ---
+## 42. Trapping Rain Water
+→ Two Pointers
+
+**Signal:**
+- Need left maximum and right maximum.
+- Water depends on boundaries from both sides.
+- Looking for O(1) extra space.
+
+**Key Learning:**
+The smaller boundary determines how much water can be trapped.
+
+---
