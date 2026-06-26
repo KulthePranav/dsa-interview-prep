@@ -13,21 +13,21 @@ A structured collection of Data Structures & Algorithms solutions, notes, and in
 
 - Python
 
-## Progress
+## 📈 Progress
 
-| Topic | Solved |
-|--------|--------|
-| Arrays & Hashing | 9 |
-| Two Pointers | 5 |
-| Sliding Window | 0 |
-| Stack | 0 |
-| Binary Search | 0 |
-| Linked List | 0 |
-| Trees | 0 |
-| Heap | 0 |
-| Backtracking | 0 |
-| Graphs | 0 |
-| Dynamic Programming | 0 |
+| Topic | Solved | Code | Notes |
+|--------|:------:|:----:|:-----:|
+| Arrays & Hashing | 9 | [📂 Folder](./Arrays-Hashing/) | [📝 Notes](./notes/arrays-hashing.md) |
+| Two Pointers | 5 | [📂 Folder](./Two-Pointers/) | [📝 Notes](./notes/two-pointers.md) |
+| Sliding Window | 1 | [📂 Folder](./Sliding-Window/) | [📝 Notes](./notes/sliding-window.md) |
+| Stack | 0 | [📂 Folder](./Stack/) | [📝 Notes](./notes/stack.md) |
+| Binary Search | 0 | [📂 Folder](./Binary-Search/) | [📝 Notes](./notes/binary-search.md) |
+| Linked List | 0 | [📂 Folder](./Linked-List/) | [📝 Notes](./notes/linked-list.md) |
+| Trees | 0 | [📂 Folder](./Trees/) | [📝 Notes](./notes/trees.md) |
+| Heap / Priority Queue | 0 | [📂 Folder](./Heap-Priority-Queue/) | [📝 Notes](./notes/heap-priority-queue.md) |
+| Backtracking | 0 | [📂 Folder](./Backtracking/) | [📝 Notes](./notes/backtracking.md) |
+| Graphs | 0 | [📂 Folder](./Graphs/) | [📝 Notes](./notes/graphs.md) |
+| Dynamic Programming | 0 | [📂 Folder](./Dynamic-Programming/) | [📝 Notes](./notes/dynamic-programming.md) |
 
 ## Repository Structure
 
