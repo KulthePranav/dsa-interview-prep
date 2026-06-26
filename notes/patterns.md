@@ -165,3 +165,14 @@ Always move the smaller height because the larger height is not the limiting fac
 The smaller boundary determines how much water can be trapped.
 
 ---
+
+## 121. Best Time to Buy and Sell Stock
+→ Sliding Window
+
+**Signal:**
+- Need to maximize profit between two positions.
+- Buy must happen before sell.
+- Looking for O(n) solution.
+
+**Key Learning:**
+Track the minimum buying price while scanning, or use a sliding window to maintain buy and sell days.
