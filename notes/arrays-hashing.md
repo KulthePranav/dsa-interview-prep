@@ -1,4 +1,4 @@
-# Pattern Recognition
+# Arrays & Hashing
 
 ## 217. Contains Duplicate
 
