@@ -14,6 +14,7 @@ If a number already exists in the set, return `True`.
 **Key Learning:**
 Hash Set = O(1) lookup for duplicate detection.
 
+---
 
 ## 242. Valid Anagram
 
@@ -34,6 +35,8 @@ O(n) in general
 **Key Learning:**
 Use frequency counting when occurrence counts matter more than order.
 
+---
+
 ## 1. Two Sum
 
 **Pattern:** Hash Map
@@ -50,6 +53,8 @@ Use frequency counting when occurrence counts matter more than order.
 
 **Key Learning:**
 Hash Maps allow constant-time lookups, converting a brute-force O(n²) search into O(n).
+
+---
 
 ## 49. Group Anagrams
 
@@ -118,6 +123,8 @@ defaultdict(int)    # Frequency counting
 **Key Learning:**
 A frequency count tuple can be used as a hashable signature for anagrams.
 
+---
+
 ## 347. Top K Frequent Elements
 
 **Pattern:** Bucket Sort + Frequency Count
@@ -159,6 +166,8 @@ for i in range(len(freq) - 1, 0, -1):
 **Key Learning:**
 Bucket Sort is useful when values represent frequencies within a limited range.
 
+---
+
 ## 271. Encode and Decode Strings
 
 **Pattern:** String Encoding / Length Prefix
@@ -196,6 +205,8 @@ word = encoded[j+1:j+1+length]
 Store metadata (length) before the data itself.
 This avoids delimiter collision issues.
 
+---
+
 ## 238. Product of Array Except Self
 
 **Pattern:** Prefix & Postfix Products
@@ -232,6 +243,8 @@ for i in range(n - 1, -1, -1):
 
 **Key Learning:**
 Use Prefix & Postfix Products when each position depends on elements on both sides.
+
+---
 
 ## 36. Valid Sudoku
 
@@ -279,6 +292,8 @@ This uniquely identifies each of the 9 sub-boxes.
 **Key Learning:**
 Multiple constraints can often be validated independently using separate hash sets
 
+---
+
 ## 128. Longest Consecutive Sequence
 
 **Pattern:** Hash Set
@@ -315,3 +330,5 @@ for num in num_set:
 **Key Learning:**
 Only begin counting from sequence starts.
 This guarantees each number is processed once.
+
+---
