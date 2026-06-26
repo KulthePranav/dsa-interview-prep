@@ -176,3 +176,18 @@ The smaller boundary determines how much water can be trapped.
 
 **Key Learning:**
 Track the minimum buying price while scanning, or use a sliding window to maintain buy and sell days.
+
+---
+
+## 3. Longest Substring Without Repeating Characters
+→ Variable Sliding Window + Hash Set
+
+**Signal:**
+- Need the longest/shortest contiguous substring.
+- Window validity depends on unique characters.
+- Expand and shrink the window dynamically.
+
+**Key Learning:**
+Use a Hash Set to maintain unique characters and shrink the window whenever a duplicate is encountered.
+
+---
