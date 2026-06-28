@@ -191,3 +191,16 @@ Track the minimum buying price while scanning, or use a sliding window to mainta
 Use a Hash Set to maintain unique characters and shrink the window whenever a duplicate is encountered.
 
 ---
+
+## 424. Longest Repeating Character Replacement
+→ Variable Sliding Window + Frequency Count
+
+**Signal:**
+- Need the longest valid substring.
+- Allowed to modify up to `k` characters.
+- Window validity depends on character frequencies.
+
+**Key Learning:**
+Maintain the frequency of characters in the current window. Shrink the window only when the number of replacements needed exceeds `k`.
+
+---
