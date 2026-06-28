@@ -238,3 +238,152 @@ Unlike a fixed-size window, this window expands and shrinks dynamically.
 Whenever the problem asks for the longest or shortest contiguous substring under a constraint, think **Variable Sliding Window**.
 
 ---
+
+## 424. Longest Repeating Character Replacement
+
+**Pattern:** Variable Sliding Window + Frequency Count
+
+**Signal:**
+- Need the longest valid substring.
+- Can replace at most `k` characters.
+- Window expands and shrinks dynamically.
+
+### Observation
+
+For a window to be valid:
+
+```text
+Window Size - Frequency of Most Common Character <= k
+```
+
+The characters that are **not** the most frequent need to be replaced.
+
+### Formula
+
+```python
+(window_size) - max_frequency <= k
+```
+
+or
+
+```python
+(r - l + 1) - max_freq <= k
+```
+
+### Approach
+
+1. Expand the window by moving the right pointer.
+2. Count character frequencies.
+3. Track the highest frequency in the current window.
+4. If replacements needed exceed `k`, shrink the window.
+5. Track the maximum valid window length.
+
+### Template
+
+```python
+l = 0
+count = {}
+res = 0
+max_freq = 0
+
+for r in range(len(s)):
+
+    count[s[r]] = 1 + count.get(s[r], 0)
+
+    max_freq = max(max_freq, count[s[r]])
+
+    while (r - l + 1) - max_freq > k:
+        count[s[l]] -= 1
+        l += 1
+
+    res = max(res, r - l + 1)
+
+return res
+```
+### Why Do We Track `max_freq`?
+
+Suppose:
+
+```text
+Window = AABABBA
+
+A → 4
+B → 3
+
+max_freq = 4
+```
+
+Only the other characters need replacement.
+
+```
+Needed replacements
+=
+Window Size - max_freq
+```
+
+If:
+
+```text
+Needed replacements > k
+```
+
+Shrink the window.
+
+### Why Don't We Decrease `max_freq`?
+
+Notice that `max_freq` only increases.
+
+Even if the most frequent character leaves the window, we **do not recalculate** it.
+
+This is still correct because:
+
+- A stale `max_freq` may delay shrinking the window.
+- It never causes us to miss the optimal answer.
+- Recomputing `max_freq` every time would increase complexity.
+
+### Visualization
+
+```text
+s = "AABABBA"
+k = 1
+
+Window = AABA
+
+Count:
+A = 3
+B = 1
+
+Window Size = 4
+
+Replacements Needed
+
+4 - 3 = 1
+
+Valid Window
+```
+
+### Alternative Solution
+
+Recompute the maximum frequency every time the window shrinks.
+
+```python
+max_freq = max(count.values())
+```
+
+This is simpler to understand but less efficient because it scans the frequency map repeatedly.
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Sliding Window + Running Max Frequency | O(n) | O(1) |
+| Recompute Max Frequency | O(26 × n) ≈ O(n) | O(1) |
+
+**Time:** O(n)
+
+**Space:** O(1)
+
+**Key Learning:**
+When a window is valid based on the frequency of its most common element, keep a running maximum frequency instead of recomputing it every time.
+
+---
