@@ -204,3 +204,16 @@ Use a Hash Set to maintain unique characters and shrink the window whenever a du
 Maintain the frequency of characters in the current window. Shrink the window only when the number of replacements needed exceeds `k`.
 
 ---
+
+## 567. Permutation in String
+→ Fixed Sliding Window + Frequency Count
+
+**Signal:**
+- Need to check every substring of fixed length.
+- Order doesn't matter.
+- Character frequencies determine a match.
+
+**Key Learning:**
+Use a fixed-size sliding window and compare frequency counts instead of sorting every substring.
+
+---
