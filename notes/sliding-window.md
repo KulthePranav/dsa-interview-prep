@@ -387,3 +387,140 @@ This is simpler to understand but less efficient because it scans the frequency 
 When a window is valid based on the frequency of its most common element, keep a running maximum frequency instead of recomputing it every time.
 
 ---
+
+## 567. Permutation in String
+
+**Pattern:** Fixed Sliding Window + Frequency Count
+
+**Signal:**
+- Need to check every substring of length `len(s1)`.
+- Order doesn't matter.
+- Looking for any permutation.
+
+### Observation
+
+If two strings are permutations of each other, their character frequencies are identical.
+
+Instead of sorting every substring:
+
+```python
+sorted(window) == sorted(s1)
+```
+
+maintain frequency arrays.
+
+### Approach
+
+1. Build the frequency array for `s1`.
+2. Build the frequency array for the first window of `s2`.
+3. Compare both arrays.
+4. Slide the window:
+   - Add the incoming character.
+   - Remove the outgoing character.
+5. Compare again.
+
+### Template
+
+```python
+l1 = len(s1)
+l2 = len(s2)
+
+if l1 > l2:
+    return False
+
+s1_freq = [0] * 26
+s2_freq = [0] * 26
+
+for i in range(l1):
+    s1_freq[ord(s1[i]) - ord('a')] += 1
+    s2_freq[ord(s2[i]) - ord('a')] += 1
+
+if s1_freq == s2_freq:
+    return True
+
+for i in range(l1, l2):
+    s2_freq[ord(s2[i]) - ord('a')] += 1
+    s2_freq[ord(s2[i - l1]) - ord('a')] -= 1
+
+    if s1_freq == s2_freq:
+        return True
+
+return False
+```
+
+### Visualization
+
+```text
+s1 = "ab"
+
+Target
+
+a:1
+b:1
+
+s2 = "eidbaooo"
+
+Window = "ei"
+
+↓
+
+Window = "id"
+
+↓
+
+Window = "db"
+
+↓
+
+Window = "ba"
+
+Match Found ✓
+```
+
+
+### Alternative Solution
+
+Use `collections.Counter`.
+
+```python
+from collections import Counter
+
+target = Counter(s1)
+
+for every window:
+    if Counter(window) == target:
+        return True
+```
+
+Simple, but rebuilding the counter for each window is less efficient.
+
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Sliding Window + Frequency Array | O(n) | O(1) |
+| Sliding Window + Counter | O(26 × n) ≈ O(n) | O(1) |
+| Sort Every Window | O(n × k log k) | O(k) |
+
+
+### Why Fixed Sliding Window?
+
+Every candidate substring has the same size.
+
+```text
+Window Size = len(s1)
+```
+
+Only the window position changes.
+
+Unlike Variable Sliding Window, the window length never changes.
+
+**Time:** O(n)
+
+**Space:** O(1)
+
+**Key Learning:**
+Whenever all candidate substrings have the same length, think **Fixed Sliding Window**. Frequency arrays are ideal for lowercase English letters.
+
+---
