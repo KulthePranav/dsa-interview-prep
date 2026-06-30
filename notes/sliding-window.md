@@ -524,3 +524,208 @@ Unlike Variable Sliding Window, the window length never changes.
 Whenever all candidate substrings have the same length, think **Fixed Sliding Window**. Frequency arrays are ideal for lowercase English letters.
 
 ---
+
+## 76. Minimum Window Substring
+
+**Pattern:** Variable Sliding Window + Frequency Count
+
+**Signal:**
+- Need the minimum valid substring.
+- Window contains required characters.
+- Window size changes dynamically.
+
+### Observation
+
+A window is valid when it contains every character from `t` with at least the required frequency.
+
+Maintain:
+
+- `count_t` → Required frequencies
+- `window` → Current window frequencies
+- `have` → Number of satisfied characters
+- `need` → Total unique characters required
+
+When:
+
+```python
+have == need
+```
+
+the window is valid.
+
+### Approach
+
+1. Count character frequencies in `t`.
+2. Expand the window by moving the right pointer.
+3. Update window frequencies.
+4. Once all required characters are present:
+   - Update the minimum answer.
+   - Shrink the window from the left.
+5. Repeat until the end of the string.
+
+### Template
+
+```python
+if len(t) > len(s):
+    return ""
+
+count_t = {}
+window = {}
+
+for ch in t:
+    count_t[ch] = 1 + count_t.get(ch, 0)
+
+have = 0
+need = len(count_t)
+
+res = [-1, -1]
+res_len = float("inf")
+
+l = 0
+
+for r in range(len(s)):
+
+    c = s[r]
+    window[c] = 1 + window.get(c, 0)
+
+    if c in count_t and window[c] == count_t[c]:
+        have += 1
+
+    while have == need:
+
+        if (r - l + 1) < res_len:
+            res = [l, r]
+            res_len = r - l + 1
+
+        window[s[l]] -= 1
+
+        if s[l] in count_t and window[s[l]] < count_t[s[l]]:
+            have -= 1
+
+        l += 1
+
+l, r = res
+
+return s[l:r + 1] if res_len != float("inf") else ""
+```
+
+### Visualization
+
+```text
+s = "ADOBECODEBANC"
+t = "ABC"
+
+Expand →
+
+ADOBEC
+
+Valid
+
+Shrink →
+
+DOBEC
+
+Invalid
+
+Expand →
+
+DOBECODEBA
+
+Valid
+
+Shrink →
+
+BANC
+
+Smallest Valid Window
+```
+
+### Understanding `have` and `need`
+
+Suppose:
+
+```text
+t = "AABC"
+```
+
+Required frequencies:
+
+```text
+A → 2
+B → 1
+C → 1
+```
+
+Then:
+
+```python
+need = 3
+```
+
+because there are **3 unique characters**.
+
+A character contributes to `have` only when its required frequency is fully met.
+
+Example:
+
+```text
+Window
+
+A → 2 ✓
+B → 1 ✓
+C → 0 ✗
+
+have = 2
+need = 3
+```
+### Alternative Solution
+
+Brute Force:
+
+Generate every substring and check whether it contains all required characters.
+
+Time:
+
+```text
+O(n³)
+```
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Sliding Window | O(n) | O(m) |
+| Brute Force | O(n³) | O(m) |
+
+*m = number of unique characters in `t`.*
+
+### Pattern Recognition
+
+```text
+Need smallest valid substring?
+
+↓
+
+Variable Sliding Window
+
+↓
+
+Maintain frequencies
+
+↓
+
+Expand
+
+↓
+
+When valid → Shrink
+```
+
+**Time:** O(n)
+
+**Space:** O(m)
+
+**Key Learning:**
+For minimum/maximum substring problems with character constraints, use a Variable Sliding Window with frequency counting and a validity check (`have == need`).
+
+---
