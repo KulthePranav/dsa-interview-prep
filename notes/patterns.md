@@ -217,3 +217,16 @@ Maintain the frequency of characters in the current window. Shrink the window on
 Use a fixed-size sliding window and compare frequency counts instead of sorting every substring.
 
 ---
+
+## 76. Minimum Window Substring
+→ Variable Sliding Window + Frequency Count
+
+**Signal:**
+- Need the smallest valid substring.
+- Window must contain all required characters.
+- Expand to satisfy the condition, shrink to minimize the answer.
+
+**Key Learning:**
+Maintain character frequencies and shrink the window whenever all required characters are present.
+
+---
