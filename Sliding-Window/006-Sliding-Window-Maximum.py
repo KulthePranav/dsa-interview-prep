@@ -13,9 +13,6 @@ Approach:
 3. Remove elements outside the current window.
 4. The front of the deque always stores the maximum.
 
-Alternative Solution:
-Brute Force
-
 Example:
 nums = [1,3,-1,-3,5,3,6,7]
 k = 3
@@ -28,6 +25,9 @@ O(n)
 
 Space Complexity:
 O(k)
+
+Alternative Solution:
+Brute Force
 
 Alternative Complexity:
 
