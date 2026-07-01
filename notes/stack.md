@@ -557,3 +557,203 @@ Use Stack
 Stacks naturally evaluate postfix expressions because operators always apply to the most recently seen operands.
 
 ---
+
+## 739. Daily Temperatures
+
+**Pattern:** Monotonic Stack (Next Greater Element)
+
+**Signal:**
+- Need the next greater value.
+- Need the first future occurrence satisfying a condition.
+- Linear-time solution required.
+
+### Why Not Brute Force?
+
+For every day:
+
+```python
+for j in range(i + 1, n):
+```
+
+Search for the next warmer temperature.
+
+Time:
+
+```text
+O(n²)
+```
+
+### Observation
+
+Some temperatures are still waiting for a warmer day.
+
+Example:
+
+```text
+73 74 75
+```
+
+When 74 arrives:
+
+```
+73 is resolved.
+```
+
+When 75 arrives:
+
+```
+74 is resolved.
+```
+
+A stack naturally stores unresolved temperatures.
+
+### Monotonic Stack
+
+Maintain indices whose temperatures are in **decreasing order**.
+
+Example:
+
+```text
+Temperatures
+
+75
+74
+71
+69
+
+Stack (indices)
+
+0
+1
+2
+3
+```
+
+Whenever a warmer temperature appears:
+
+```text
+72
+```
+
+Resolve:
+
+```text
+69
+71
+```
+
+### Why Store Indices?
+
+We need to compute:
+
+```python
+days = current_index - previous_index
+```
+
+Storing only temperatures would lose the original positions.
+
+### Approach
+
+1. Traverse temperatures.
+2. While the current temperature is warmer than the top of the stack:
+   - Pop the previous index.
+   - Calculate the number of waiting days.
+3. Push the current index.
+4. Any remaining indices never find a warmer day.
+
+
+### Template
+
+```python
+stack = []
+answer = [0] * len(temperatures)
+
+for i, temp in enumerate(temperatures):
+
+    while stack and temp > temperatures[stack[-1]]:
+
+        index = stack.pop()
+
+        answer[index] = i - index
+
+    stack.append(i)
+
+return answer
+```
+
+### Visualization
+
+```text
+Temperatures
+
+73 74 75 71 69 72
+
+Stack
+
+73
+
+74
+
+75
+
+75 71
+
+75 71 69
+
+72 arrives
+
+Resolve:
+
+69 → 1 day
+
+71 → 2 days
+
+Stack
+
+75 72
+```
+
+### Alternative Solution
+
+Brute Force
+
+```python
+for i:
+
+    for j in range(i + 1, n):
+
+        if temperatures[j] > temperatures[i]:
+            answer[i] = j - i
+            break
+```
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Monotonic Stack | O(n) | O(n) |
+| Brute Force | O(n²) | O(1) |
+
+
+### Pattern Recognition
+
+```text
+Need next greater element?
+
+↓
+
+Need first future greater value?
+
+↓
+
+Use Monotonic Stack
+```
+
+**Time:** O(n)
+
+**Space:** O(n)
+
+**Key Learning:**
+A Monotonic Stack efficiently solves "Next Greater Element" problems by keeping unresolved indices in monotonic order.
+
+---
