@@ -30,6 +30,15 @@
 - [x] Minimum Window Substring
 - [x] Sliding Window Maximum
 
+## Stack
+
+- [x] Valid Parentheses
+- [ ] Min Stack
+- [ ] Evaluate Reverse Polish Notation
+- [ ] Daily Temperatures
+- [ ] Car Fleet
+- [ ] Largest Rectangle In Histogram
+
 ## Dynamic Programming
 
 - [ ] Climbing Stairs
