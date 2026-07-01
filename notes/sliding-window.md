@@ -729,3 +729,197 @@ When valid → Shrink
 For minimum/maximum substring problems with character constraints, use a Variable Sliding Window with frequency counting and a validity check (`have == need`).
 
 ---
+
+## 239. Sliding Window Maximum
+
+**Pattern:** Monotonic Deque
+
+**Signal:**
+- Need the maximum value in every window.
+- Fixed window size.
+- Efficient updates while sliding.
+
+
+### Why Not Brute Force?
+
+For every window:
+
+```python
+max(window)
+```
+
+Time:
+
+```text
+O(n × k)
+```
+
+Too slow when `k` is large.
+
+
+### Observation
+
+We only care about elements that can become the maximum.
+
+If a new element is larger than previous elements:
+
+```text
+3 2 1 5
+```
+
+then:
+
+```text
+3
+2
+1
+```
+
+can never become the maximum again.
+
+Remove them.
+
+### Monotonic Deque
+
+Maintain indices in **decreasing order of values**.
+
+Example:
+
+```text
+Values
+
+9 7 5 3
+
+Deque
+
+[9,7,5,3]
+```
+
+Front always contains the maximum.
+
+### Approach
+
+1. Remove smaller elements from the back.
+2. Insert the current index.
+3. Remove indices outside the window.
+4. Once the window reaches size `k`, record the front.
+
+### Template
+
+```python
+output = []
+
+q = collections.deque()
+
+l = r = 0
+
+while r < len(nums):
+
+    while q and nums[q[-1]] < nums[r]:
+        q.pop()
+
+    q.append(r)
+
+    if l > q[0]:
+        q.popleft()
+
+    if r + 1 >= k:
+        output.append(nums[q[0]])
+        l += 1
+
+    r += 1
+
+return output
+```
+
+### Visualization
+
+```text
+nums = [1,3,-1,-3,5]
+
+Window = [1,3,-1]
+
+Deque
+
+3
+-1
+
+Maximum = 3
+
+↓
+
+Slide
+
+Window = [3,-1,-3]
+
+Deque
+
+3
+-1
+-3
+
+Maximum = 3
+
+↓
+
+Slide
+
+Window = [-1,-3,5]
+
+Remove all smaller values
+
+Deque
+
+5
+
+Maximum = 5
+```
+
+### Why Store Indices Instead of Values?
+
+We need to know when an element leaves the window.
+
+```python
+if q[0] < left:
+    q.popleft()
+```
+
+With values only, we can't determine whether the maximum is outside the current window.
+
+
+### Alternative Solution
+
+Brute Force
+
+```python
+for every window:
+    answer.append(max(window))
+```
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Monotonic Deque | O(n) | O(k) |
+| Brute Force | O(n × k) | O(1) |
+
+
+### Pattern Recognition
+
+```text
+Need maximum/minimum
+for every fixed window?
+
+↓
+
+Monotonic Queue (Deque)
+```
+
+**Time:** O(n)
+
+**Space:** O(k)
+
+**Key Learning:**
+A Monotonic Deque maintains candidate maximums in decreasing order, allowing each element to be added and removed at most once.
+
+---
