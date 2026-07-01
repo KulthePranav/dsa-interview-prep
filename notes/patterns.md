@@ -256,3 +256,15 @@ Maintain a decreasing deque of indices so the front always stores the maximum el
 Use a stack to store opening brackets. Every closing bracket must match the top of the stack.
 
 ---
+
+## 155. Min Stack
+→ Stack + Auxiliary Stack
+
+**Signal:**
+- Need constant-time minimum/maximum retrieval.
+- Stack operations with additional state.
+
+**Key Learning:**
+Maintain an auxiliary stack that stores the minimum value corresponding to each element in the main stack.
+
+---
