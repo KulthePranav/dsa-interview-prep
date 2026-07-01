@@ -281,3 +281,16 @@ Maintain an auxiliary stack that stores the minimum value corresponding to each 
 Use a stack to store operands. When an operator is encountered, pop two operands, evaluate, and push the result back.
 
 ---
+
+## 739. Daily Temperatures
+→ Monotonic Stack (Next Greater Element)
+
+**Signal:**
+- Need the next greater/smaller element.
+- Looking for the first future element satisfying a condition.
+- Brute force compares every element with future elements.
+
+**Key Learning:**
+Maintain a monotonic stack of indices. When a larger element appears, resolve all smaller elements waiting in the stack.
+
+---
