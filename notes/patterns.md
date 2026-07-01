@@ -268,3 +268,16 @@ Use a stack to store opening brackets. Every closing bracket must match the top 
 Maintain an auxiliary stack that stores the minimum value corresponding to each element in the main stack.
 
 ---
+
+## 150. Evaluate Reverse Polish Notation
+→ Stack
+
+**Signal:**
+- Expression evaluation.
+- Operators appear after operands.
+- Process tokens from left to right.
+
+**Key Learning:**
+Use a stack to store operands. When an operator is encountered, pop two operands, evaluate, and push the result back.
+
+---
