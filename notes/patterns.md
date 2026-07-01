@@ -230,3 +230,16 @@ Use a fixed-size sliding window and compare frequency counts instead of sorting 
 Maintain character frequencies and shrink the window whenever all required characters are present.
 
 ---
+
+## 239. Sliding Window Maximum
+→ Monotonic Deque
+
+**Signal:**
+- Need the maximum/minimum of every fixed-size window.
+- Brute force scans each window repeatedly.
+- Looking for an O(n) solution.
+
+**Key Learning:**
+Maintain a decreasing deque of indices so the front always stores the maximum element of the current window.
+
+---
