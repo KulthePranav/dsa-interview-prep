@@ -359,3 +359,201 @@ Maintain an auxiliary stack
 Whenever a data structure needs extra information in constant time, consider maintaining an auxiliary data structure alongside it.
 
 ---
+
+## 150. Evaluate Reverse Polish Notation
+
+**Pattern:** Stack
+
+**Signal:**
+- Expression is given in postfix notation.
+- Operators come after operands.
+- Need to evaluate expressions while preserving order.
+
+
+### What is Reverse Polish Notation (RPN)?
+
+In RPN (Postfix notation):
+
+Instead of:
+
+```text
+2 + 3
+```
+
+We write:
+
+```text
+2 3 +
+```
+
+Another example:
+
+```text
+(2 + 1) × 3
+```
+
+becomes
+
+```text
+2 1 + 3 *
+```
+
+No parentheses are required.
+
+
+### Observation
+
+Whenever an operator appears:
+
+- The previous two numbers belong to it.
+- The second popped value is the right operand.
+- The first popped value is the left operand.
+
+### Approach
+
+1. Traverse every token.
+2. If the token is a number:
+   - Push it onto the stack.
+3. Otherwise:
+   - Pop two operands.
+   - Perform the operation.
+   - Push the result back.
+4. The final element is the answer.
+
+
+### Template
+
+```python
+operation_dict = {
+    "+": lambda a, b: a + b,
+    "-": lambda a, b: a - b,
+    "*": lambda a, b: a * b,
+    "/": lambda a, b: int(a / b)
+}
+
+stack = []
+
+for token in tokens:
+
+    if token.lstrip("-").isdigit():
+        stack.append(int(token))
+
+    else:
+        b = stack.pop()
+        a = stack.pop()
+
+        stack.append(operation_dict[token](a, b))
+
+return stack[0]
+```
+
+### Visualization
+
+Example:
+
+```text
+Tokens
+
+["2","1","+","3","*"]
+```
+
+Stack:
+
+```text
+2
+
+2 1
+
++
+
+3
+
+3
+
+*
+
+9
+```
+
+Answer:
+
+```text
+9
+```
+
+### Why `int(a / b)`?
+
+Python's `//` performs **floor division**.
+
+Example:
+
+```python
+-3 // 2
+```
+
+Result:
+
+```text
+-2
+```
+
+But the problem requires **truncate toward zero**:
+
+```python
+int(-3 / 2)
+```
+
+Result:
+
+```text
+-1
+```
+
+### Alternative Solution
+
+Use `if-elif` instead of a dictionary.
+
+```python
+if token == "+":
+    stack.append(a + b)
+
+elif token == "-":
+    stack.append(a - b)
+
+elif token == "*":
+    stack.append(a * b)
+
+else:
+    stack.append(int(a / b))
+```
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Stack + Lambda Dictionary | O(n) | O(n) |
+| Stack + if-elif | O(n) | O(n) |
+
+
+### Pattern Recognition
+
+```text
+Need to evaluate expression?
+
+↓
+
+Postfix notation?
+
+↓
+
+Use Stack
+```
+
+**Time:** O(n)
+
+**Space:** O(n)
+
+**Key Learning:**
+Stacks naturally evaluate postfix expressions because operators always apply to the most recently seen operands.
+
+---
