@@ -33,9 +33,9 @@
 ## Stack
 
 - [x] Valid Parentheses
-- [ ] Min Stack
-- [ ] Evaluate Reverse Polish Notation
-- [ ] Daily Temperatures
+- [x] Min Stack
+- [x] Evaluate Reverse Polish Notation
+- [x] Daily Temperatures
 - [ ] Car Fleet
 - [ ] Largest Rectangle In Histogram
 
