@@ -243,3 +243,16 @@ Maintain character frequencies and shrink the window whenever all required chara
 Maintain a decreasing deque of indices so the front always stores the maximum element of the current window.
 
 ---
+
+## 20. Valid Parentheses
+→ Stack
+
+**Signal:**
+- Need to match opening and closing symbols.
+- Nested structures.
+- Last opened item must be closed first.
+
+**Key Learning:**
+Use a stack to store opening brackets. Every closing bracket must match the top of the stack.
+
+---
