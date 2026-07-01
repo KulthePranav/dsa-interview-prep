@@ -16,9 +16,6 @@ Approach:
 3. Push the current index.
 4. Remaining indices have no warmer day.
 
-Alternative Solution:
-Brute Force
-
 Example:
 
 Input:
@@ -32,6 +29,9 @@ O(n)
 
 Space Complexity:
 O(n)
+
+Alternative Solution:
+Brute Force
 
 Alternative Complexity:
 
