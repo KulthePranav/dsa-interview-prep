@@ -830,3 +830,313 @@ Python uses **Timsort**, which is stable and optimized for partially sorted data
 - Greedy algorithms
 
 ---
+
+# `str.isdigit()`
+
+Checks whether a string contains only digits.
+
+```python
+"123".isdigit()
+```
+
+Output:
+
+```python
+True
+```
+
+```python
+"-123".isdigit()
+```
+
+Output:
+
+```python
+False
+```
+
+Negative numbers are **not** considered digits because of the `-` sign.
+
+---
+
+# `str.lstrip(chars)`
+
+Removes specified characters from the **left** side of a string.
+
+```python
+"-123".lstrip("-")
+```
+
+Output:
+
+```python
+"123"
+```
+
+### Detect Negative Integers
+
+```python
+token.lstrip("-").isdigit()
+```
+
+Examples:
+
+| Token | Result |
+|-------|--------|
+| `"123"` | True |
+| `"-45"` | True |
+| `"+"` | False |
+| `"3.5"` | False |
+| `"abc"` | False |
+
+Useful when parsing numeric strings in stack and expression problems.
+
+---
+
+# `lambda` Functions
+
+A **lambda function** is a small anonymous (unnamed) function used for short, one-line operations.
+
+General syntax:
+
+```python
+lambda arguments: expression
+```
+
+Equivalent to:
+
+```python
+def func(arguments):
+    return expression
+```
+
+## Basic Examples
+
+Addition:
+
+```python
+add = lambda a, b: a + b
+
+print(add(2, 3))
+```
+
+Output:
+
+```python
+5
+```
+
+Equivalent:
+
+```python
+def add(a, b):
+    return a + b
+```
+
+## Multiple Operations
+
+```python
+subtract = lambda a, b: a - b
+multiply = lambda a, b: a * b
+divide = lambda a, b: int(a / b)
+```
+
+## Store Functions in a Dictionary
+
+Useful for calculators and expression evaluation.
+
+```python
+operations = {
+    "+": lambda a, b: a + b,
+    "-": lambda a, b: a - b,
+    "*": lambda a, b: a * b,
+    "/": lambda a, b: int(a / b)
+}
+
+result = operations["+"](3, 4)
+```
+
+Output:
+
+```python
+7
+```
+
+Used in:
+
+- Evaluate Reverse Polish Notation
+- Basic Calculator
+- Expression Parsing
+
+
+## `sorted()` with `lambda`
+
+Sort by second element.
+
+```python
+arr = [
+    ("Alice", 25),
+    ("Bob", 18),
+    ("John", 30)
+]
+
+sorted(arr, key=lambda x: x[1])
+```
+
+Output:
+
+```python
+[
+    ('Bob', 18),
+    ('Alice', 25),
+    ('John', 30)
+]
+```
+
+
+## Sort Dictionary by Value
+
+```python
+scores = {
+    "A": 90,
+    "B": 75,
+    "C": 95
+}
+
+sorted(scores.items(), key=lambda x: x[1])
+```
+
+## Multiple Sorting Keys
+
+```python
+students = [
+    ("John", 20),
+    ("Alice", 20),
+    ("Bob", 18)
+]
+
+sorted(
+    students,
+    key=lambda x: (x[1], x[0])
+)
+```
+
+Sorts by:
+
+1. Age
+2. Name
+
+
+## `max()` and `min()` with `lambda`
+
+Find student with maximum marks.
+
+```python
+students = [
+    ("Alice", 90),
+    ("Bob", 85),
+    ("John", 95)
+]
+
+max(students, key=lambda x: x[1])
+```
+
+Output:
+
+```python
+('John', 95)
+```
+
+## `map()` with `lambda`
+
+```python
+nums = [1, 2, 3]
+
+list(map(lambda x: x * 2, nums))
+```
+
+Output:
+
+```python
+[2, 4, 6]
+```
+
+
+## `filter()` with `lambda`
+
+```python
+nums = [1, 2, 3, 4, 5]
+
+list(filter(lambda x: x % 2 == 0, nums))
+```
+
+Output:
+
+```python
+[2, 4]
+```
+
+## Time Complexity
+
+A lambda function itself has **O(1)** overhead.
+
+Overall complexity depends on where it is used:
+
+| Usage | Complexity |
+|--------|------------|
+| Lambda call | O(1) |
+| `sorted(..., key=lambda)` | O(n log n) |
+| `max(..., key=lambda)` | O(n) |
+| `min(..., key=lambda)` | O(n) |
+| `map(lambda)` | O(n) |
+| `filter(lambda)` | O(n) |
+
+
+## When to Use
+
+✅ Short one-line functions
+
+✅ Custom sorting
+
+✅ Dictionary of operations
+
+✅ `max()`, `min()`
+
+✅ `map()` and `filter()`
+
+
+## When NOT to Use
+
+❌ Large or complex logic
+
+Instead of:
+
+```python
+lambda x:
+    ...
+    ...
+    ...
+```
+
+Use a normal function:
+
+```python
+def process(x):
+    ...
+```
+
+This improves readability and debugging.
+
+
+## Common DSA Applications
+
+- Evaluate Reverse Polish Notation
+- Merge Intervals
+- Meeting Rooms
+- Sort Characters by Frequency
+- Top K Frequent Elements
+- Heap (`heapq`)
+- Graph sorting
+- Greedy algorithms
+
+---
