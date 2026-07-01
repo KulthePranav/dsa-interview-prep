@@ -317,3 +317,186 @@ Converts character/string to lowercase.
 
 - Valid Palindrome
 - Valid Anagram
+
+---
+
+## `float("inf")` and `float("-inf")`
+
+## Positive Infinity
+
+```python
+minimum = float("inf")
+```
+
+Used when searching for the **minimum** value.
+
+Example:
+
+```python
+minimum = float("inf")
+
+for num in nums:
+    minimum = min(minimum, num)
+```
+
+## Negative Infinity
+
+```python
+maximum = float("-inf")
+```
+
+Used when searching for the **maximum** value.
+
+Example:
+
+```python
+maximum = float("-inf")
+
+for num in nums:
+    maximum = max(maximum, num)
+```
+
+## Common Use Cases
+
+| Expression | Used For |
+|------------|----------|
+| `float("inf")` | Initialize minimum value |
+| `float("-inf")` | Initialize maximum value |
+
+Examples:
+- Minimum Window Substring
+- Dijkstra's Algorithm
+- Kadane's Algorithm
+- Dynamic Programming
+
+---
+
+## `collections.deque`
+
+A **deque (Double Ended Queue)** supports efficient insertion and deletion from **both ends**.
+
+```python
+from collections import deque
+
+q = deque()
+```
+
+Unlike a list, operations at the front are **O(1)**.
+
+## Common Operations
+
+### Append to Right
+
+```python
+q.append(5)
+```
+
+```
+[5]
+```
+
+### Append to Left
+
+```python
+q.appendleft(3)
+```
+
+```
+[3, 5]
+```
+
+### Remove from Right
+
+```python
+q.pop()
+```
+
+---
+
+### Remove from Left
+
+```python
+q.popleft()
+```
+
+### Front Element
+
+```python
+q[0]
+```
+### Back Element
+
+```python
+q[-1]
+```
+
+
+### Length
+
+```python
+len(q)
+```
+
+### Check if Empty
+
+```python
+if not q:
+    ...
+```
+
+or
+
+```python
+if q:
+    ...
+```
+
+## Why Use `deque` Instead of a List?
+
+| Operation | List | Deque |
+|-----------|------|--------|
+| Append Right | O(1) | O(1) |
+| Pop Right | O(1) | O(1) |
+| Append Left | O(n) | O(1) |
+| Pop Left | O(n) | O(1) |
+
+Lists are inefficient for removing elements from the front because all remaining elements must be shifted.
+
+
+## Common DSA Applications
+
+- Sliding Window Maximum
+- Monotonic Queue
+- BFS (Breadth-First Search)
+- Queue implementation
+- LRU Cache
+
+---
+
+## Monotonic Deque Pattern
+
+Used to maintain elements in increasing or decreasing order.
+
+Example (decreasing deque):
+
+```python
+while q and nums[q[-1]] < nums[r]:
+    q.pop()
+
+q.append(r)
+```
+
+The front of the deque always stores the index of the maximum element in the current window.
+
+### Why Store Indices Instead of Values?
+
+Store indices so you can determine whether an element has moved outside the current window.
+
+```python
+if q[0] < left:
+    q.popleft()
+```
+
+If only values were stored, you couldn't tell whether the maximum element was still inside the sliding window.
+
+---
