@@ -1,6 +1,6 @@
 # Python DSA Utilities
 
-## defaultdict(list)
+## `defaultdict(list)`
 
 ```python
 from collections import defaultdict
@@ -30,7 +30,7 @@ groups[key].append(value)
 
 ---
 
-## defaultdict(set)
+## `defaultdict(set)`
 
 ```python
 from collections import defaultdict
@@ -60,7 +60,7 @@ rows[key].add(value)
 
 ---
 
-## defaultdict(int)
+## `defaultdict(int)`
 
 ```python
 from collections import defaultdict
@@ -89,7 +89,7 @@ freq[num] = freq.get(num, 0) + 1
 
 ---
 
-## ord()
+## `ord()`
 
 Returns ASCII/Unicode value of a character.
 
@@ -123,7 +123,7 @@ ord("c") - ord("a")
 
 ---
 
-## chr()
+## `chr()`
 
 Converts ASCII value back to a character.
 
@@ -143,7 +143,7 @@ ord()
 
 ---
 
-## enumerate()
+## `enumerate()`
 
 Returns index and value together.
 
@@ -174,7 +174,7 @@ for i in range(len(nums)):
 
 ---
 
-## set()
+## `set()`
 
 Stores unique values.
 
@@ -203,7 +203,7 @@ Delete    O(1)
 
 ---
 
-## tuple()
+## `tuple()`
 
 Immutable and hashable.
 
@@ -239,7 +239,7 @@ d[(1,2,3)] = value  ✅
 
 ---
 
-## list[::-1]
+## `list[::-1]`
 
 Reverse a sequence.
 
@@ -261,7 +261,7 @@ Output:
 
 ---
 
-## get()
+## `get()`
 
 Safely fetch dictionary values.
 
@@ -287,7 +287,7 @@ count[num] += 1
 
 ---
 
-## isalnum()
+## `isalnum()`
 
 Checks if a character is alphanumeric.
 
@@ -303,7 +303,7 @@ Checks if a character is alphanumeric.
 
 ---
 
-## lower()
+## `lower()`
 
 Converts character/string to lowercase.
 
@@ -498,5 +498,335 @@ if q[0] < left:
 ```
 
 If only values were stored, you couldn't tell whether the maximum element was still inside the sliding window.
+
+---
+
+# `collections.Counter`
+
+`Counter` is a dictionary subclass used for counting the frequency of elements.
+
+```python
+from collections import Counter
+```
+
+## Count Frequencies
+
+```python
+nums = [1, 1, 2, 3, 3, 3]
+
+count = Counter(nums)
+
+print(count)
+```
+
+Output:
+
+```python
+Counter({3: 3, 1: 2, 2: 1})
+```
+
+## Count Characters
+
+```python
+word = "banana"
+
+count = Counter(word)
+```
+
+Output:
+
+```python
+Counter({
+    'a': 3,
+    'n': 2,
+    'b': 1
+})
+```
+
+## Access Frequency
+
+```python
+count['a']
+```
+
+Output:
+
+```python
+3
+```
+
+Missing keys return `0`.
+
+```python
+count['z']
+```
+
+Output:
+
+```python
+0
+```
+
+## Most Common Elements
+
+```python
+count = Counter([1,1,1,2,2,3])
+
+count.most_common()
+```
+
+Output:
+
+```python
+[(1,3), (2,2), (3,1)]
+```
+
+Top 2:
+
+```python
+count.most_common(2)
+```
+
+Output:
+
+```python
+[(1,3), (2,2)]
+```
+
+## Update Counter
+
+```python
+count.update([1,2,2])
+```
+
+## Elements
+
+Returns each element repeated according to its frequency.
+
+```python
+Counter("aab").elements()
+```
+
+Result:
+
+```python
+a a b
+```
+
+## Convert to Dictionary
+
+```python
+dict(count)
+```
+
+## Time Complexity
+
+| Operation | Complexity |
+|-----------|------------|
+| Build Counter | O(n) |
+| Lookup | O(1) |
+| Update | O(k) |
+| most_common() | O(n log n) |
+
+
+## Common DSA Applications
+
+- Valid Anagram
+- Top K Frequent Elements
+- Permutation in String
+- Frequency Counting
+- Majority Element
+
+---
+
+# `sorted()` with `key`
+
+The `key` parameter specifies how elements should be compared during sorting.
+
+```python
+sorted(iterable, key=function, reverse=False)
+```
+
+## Sort Numbers
+
+```python
+nums = [5, 1, 8, 2]
+
+sorted(nums)
+```
+
+Output:
+
+```python
+[1, 2, 5, 8]
+```
+
+## Sort in Descending Order
+
+```python
+sorted(nums, reverse=True)
+```
+
+Output:
+
+```python
+[8, 5, 2, 1]
+```
+
+## Sort Strings by Length
+
+```python
+words = ["apple", "hi", "banana"]
+
+sorted(words, key=len)
+```
+
+Output:
+
+```python
+['hi', 'apple', 'banana']
+```
+
+## Sort by Absolute Value
+
+```python
+nums = [-7, 3, -2, 5]
+
+sorted(nums, key=abs)
+```
+
+Output:
+
+```python
+[-2, 3, 5, -7]
+```
+
+## Sort Tuples
+
+```python
+arr = [
+    ("Bob", 25),
+    ("Alice", 18),
+    ("John", 30)
+]
+
+sorted(arr, key=lambda x: x[1])
+```
+
+Output:
+
+```python
+[
+    ('Alice', 18),
+    ('Bob', 25),
+    ('John', 30)
+]
+```
+
+## Sort Dictionary Items by Value
+
+```python
+scores = {
+    "A": 95,
+    "B": 82,
+    "C": 100
+}
+
+sorted(scores.items(), key=lambda x: x[1])
+```
+
+Output:
+
+```python
+[
+    ('B', 82),
+    ('A', 95),
+    ('C', 100)
+]
+```
+
+Descending:
+
+```python
+sorted(scores.items(), key=lambda x: x[1], reverse=True)
+```
+
+## Multiple Sorting Keys
+
+Sort by age, then by name.
+
+```python
+students = [
+    ("John", 20),
+    ("Alice", 20),
+    ("Bob", 18)
+]
+
+sorted(students, key=lambda x: (x[1], x[0]))
+```
+
+Output:
+
+```python
+[
+    ('Bob', 18),
+    ('Alice', 20),
+    ('John', 20)
+]
+```
+
+## Difference Between `sorted()` and `.sort()`
+
+| `sorted()` | `.sort()` |
+|------------|-----------|
+| Returns a new sorted list | Modifies the original list |
+| Works with any iterable | Only works on lists |
+
+Example:
+
+```python
+nums = [3,1,2]
+
+new_nums = sorted(nums)
+
+print(nums)
+```
+
+Output:
+
+```python
+[3,1,2]
+```
+
+Example:
+
+```python
+nums.sort()
+```
+
+Output:
+
+```python
+[1,2,3]
+```
+
+## Time Complexity
+
+| Operation | Complexity |
+|-----------|------------|
+| `sorted()` | O(n log n) |
+| `.sort()` | O(n log n) |
+
+Python uses **Timsort**, which is stable and optimized for partially sorted data.
+
+
+## Common DSA Applications
+
+- Merge Intervals
+- Meeting Rooms
+- Sort Characters by Frequency
+- Group Anagrams (sorting approach)
+- Custom object sorting
+- Greedy algorithms
 
 ---
