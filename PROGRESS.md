@@ -28,7 +28,7 @@
 - [x] Longest Repeating Character Replacement
 - [x] Permutation in String
 - [x] Minimum Window Substring
-- [ ] Sliding Window Maximum
+- [x] Sliding Window Maximum
 
 ## Dynamic Programming
 
