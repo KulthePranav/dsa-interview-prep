@@ -723,6 +723,22 @@ Output:
 ]
 ```
 
+## `sorted(iterable, reverse=True)`
+
+Sorts in descending order.
+
+```python
+pairs = [(10, 2), (8, 4), (5, 1)]
+
+sorted(pairs, reverse=True)
+```
+
+Output:
+
+```python
+[(10, 2), (8, 4), (5, 1)]
+```
+
 ## Sort Dictionary Items by Value
 
 ```python
@@ -1138,5 +1154,49 @@ This improves readability and debugging.
 - Heap (`heapq`)
 - Graph sorting
 - Greedy algorithms
+
+---
+
+# `zip()`
+
+`zip()` combines multiple iterables element by element.
+
+```python
+position = [10, 8, 5]
+speed = [2, 4, 1]
+
+list(zip(position, speed))
+```
+
+Output:
+
+```python
+[(10, 2), (8, 4), (5, 1)]
+```
+
+## `zip()` with List Comprehension
+
+Convert tuples to lists.
+
+```python
+pair = [[p, s] for p, s in zip(position, speed)]
+```
+
+Equivalent to:
+
+```python
+pair = []
+
+for p, s in zip(position, speed):
+    pair.append([p, s])
+```
+
+## Common DSA Applications
+
+- Pair two arrays
+- Sorting based on paired values
+- Graph edges
+- Car Fleet
+- Interval problems
 
 ---
