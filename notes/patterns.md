@@ -294,3 +294,16 @@ Use a stack to store operands. When an operator is encountered, pop two operands
 Maintain a monotonic stack of indices. When a larger element appears, resolve all smaller elements waiting in the stack.
 
 ---
+
+## 853. Car Fleet
+→ Monotonic Stack (Arrival Time)
+
+**Signal:**
+- Objects move toward the same destination.
+- Faster objects cannot pass slower ones.
+- Need to merge groups based on arrival time.
+
+**Key Learning:**
+Sort by position (closest to target first) and use a monotonic stack of arrival times to determine fleet formation.
+
+---
