@@ -757,3 +757,217 @@ Use Monotonic Stack
 A Monotonic Stack efficiently solves "Next Greater Element" problems by keeping unresolved indices in monotonic order.
 
 ---
+
+## 853. Car Fleet
+
+**Pattern:** Monotonic Stack (Arrival Time)
+
+**Signal:**
+- Cars move in one direction.
+- Overtaking is not allowed.
+- Faster cars may catch slower cars.
+- Need to determine the number of fleets.
+
+### Why Sort?
+
+Fleet formation depends on the cars ahead.
+
+Process cars from **closest to the target** to **farthest**.
+
+```python
+sorted(pair, reverse=True)
+```
+
+### Observation
+
+Arrival time of a car:
+
+```python
+time = (target - position) / speed
+```
+
+If a car behind reaches the destination **earlier** than the fleet ahead:
+
+```text
+Behind arrives first
+
+↓
+
+It catches up
+
+↓
+
+Same fleet
+```
+
+Otherwise:
+
+```text
+Behind arrives later
+
+↓
+
+Cannot catch
+
+↓
+
+New fleet
+```
+
+### Approach
+
+1. Pair each position with its speed.
+2. Sort cars by position in descending order.
+3. Compute each car's arrival time.
+4. Push arrival time onto the stack.
+5. If the current arrival time is less than or equal to the fleet ahead, merge fleets by removing the current time.
+6. The stack size equals the number of fleets.
+
+### Template
+
+```python
+pair = [[p, s] for p, s in zip(position, speed)]
+
+stack = []
+
+for p, s in sorted(pair, reverse=True):
+
+    stack.append((target - p) / s)
+
+    if len(stack) >= 2 and stack[-1] <= stack[-2]:
+        stack.pop()
+
+return len(stack)
+```
+
+### Visualization
+
+Example:
+
+```text
+Target = 12
+
+Position
+
+10 8 5 3 0
+
+Speed
+
+2 4 1 3 1
+```
+
+Arrival times:
+
+```text
+1
+1
+7
+3
+12
+```
+
+Stack:
+
+```text
+1
+
+1  → merge
+
+7
+
+7 3 → merge
+
+7 12
+```
+
+Fleets:
+
+```text
+2
+```
+
+### Why Does `<=` Mean Merge?
+
+Suppose:
+
+```text
+Fleet ahead arrives in 5 hours.
+
+Current car arrives in 4 hours.
+```
+
+The current car reaches the fleet before the destination.
+
+Since passing isn't allowed:
+
+```text
+4 <= 5
+
+↓
+
+Merge
+```
+
+The fleet arrival time remains:
+
+```text
+5
+```
+
+### Alternative Solution (Without Explicit Stack)
+
+Since only the latest fleet time matters, a variable is sufficient.
+
+```python
+fleets = 0
+last_time = 0
+
+for p, s in sorted(zip(position, speed), reverse=True):
+
+    current = (target - p) / s
+
+    if current > last_time:
+        fleets += 1
+        last_time = current
+
+return fleets
+```
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Monotonic Stack | O(n log n) | O(n) |
+| Last Arrival Time Variable | O(n log n) | O(1) |
+
+Sorting dominates the complexity.
+
+### Pattern Recognition
+
+```text
+Cars moving toward one destination?
+
+↓
+
+No overtaking?
+
+↓
+
+Need to merge based on arrival time?
+
+↓
+
+Sort + Monotonic Stack
+```
+
+**Time:** O(n log n)
+
+- Sorting → O(n log n)
+- Stack traversal → O(n)
+
+**Space:** O(n)
+
+**Key Learning:**
+Many "merge while moving" problems can be solved by sorting first and then maintaining a monotonic property (arrival time, distance, etc.)
+
+---
