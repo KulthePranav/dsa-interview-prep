@@ -331,3 +331,15 @@ XOR cancels duplicate values (`a ^ a = 0`), leaving only the unique element.
 `n & (n - 1)` removes the rightmost set bit in each iteration.
 
 ---
+
+## 338. Counting Bits
+→ Dynamic Programming + Bit Manipulation
+
+**Signal:**
+- Compute results for every number from 0 to n.
+- Previous answers can help compute the current answer.
+
+**Key Learning:**
+Use DP with the nearest power of 2 (`offset`) to build answers in O(n).
+
+---
