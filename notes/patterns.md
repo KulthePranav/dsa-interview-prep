@@ -319,3 +319,15 @@ Sort by position (closest to target first) and use a monotonic stack of arrival 
 XOR cancels duplicate values (`a ^ a = 0`), leaving only the unique element.
 
 ---
+
+## 191. Number of 1 Bits
+→ Bit Manipulation (Brian Kernighan's Algorithm)
+
+**Signal:**
+- Count set bits (1s) in a binary number.
+- Need a solution faster than checking every bit.
+
+**Key Learning:**
+`n & (n - 1)` removes the rightmost set bit in each iteration.
+
+---
