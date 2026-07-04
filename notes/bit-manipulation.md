@@ -113,3 +113,186 @@ Use XOR
 Whenever duplicate values cancel each other and only one unique value remains, XOR is often the optimal solution.
 
 ---
+
+## 191. Number of 1 Bits
+
+**Pattern:** Bit Manipulation (Brian Kernighan's Algorithm)
+
+**Signal:**
+- Need to count set bits.
+- Binary representation matters.
+- Optimize beyond checking every bit.
+
+### Brute Force Idea
+
+Check every bit individually.
+
+```python
+count = 0
+
+while n:
+
+    count += n % 2
+
+    n //= 2
+```
+
+Time:
+
+```text
+O(number of bits)
+```
+
+### Better Observation
+
+Consider:
+
+```text
+n = 12
+
+Binary
+
+1100
+```
+
+Subtract one:
+
+```text
+1011
+```
+
+Now AND them:
+
+```text
+1100
+1011
+----
+1000
+```
+
+The **rightmost set bit disappears**.
+
+### Brian Kernighan's Algorithm
+
+```python
+n = n & (n - 1)
+```
+
+This removes exactly one `1` bit.
+
+Repeat until:
+
+```python
+n == 0
+```
+
+The number of iterations equals the number of set bits.
+
+### Example
+
+```
+13
+
+1101
+```
+
+Iteration 1
+
+```
+1101
+1100
+----
+1100
+```
+
+Iteration 2
+
+```
+1100
+1011
+----
+1000
+```
+
+Iteration 3
+
+```
+1000
+0111
+----
+0000
+```
+
+Answer:
+
+```
+3
+```
+
+### Approach
+
+1. Initialize count as 0.
+2. While `n` is non-zero:
+   - Increment count.
+   - Remove the rightmost set bit.
+3. Return count.
+
+### Template
+
+```python
+count = 0
+
+while n:
+    count += 1
+    n = n & (n - 1)
+
+return count
+```
+
+### Alternative Solution (Brute Force)
+
+```python
+count = 0
+
+while n:
+
+    if n % 2 == 1:
+        count += 1
+
+    n //= 2
+
+return count
+```
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Brian Kernighan | O(k) | O(1) |
+| Check Every Bit | O(32) or O(number of bits) | O(1) |
+
+`k = number of set bits`
+
+
+### Pattern Recognition
+
+```text
+Need number of 1s?
+
+↓
+
+Bit manipulation?
+
+↓
+
+Use n & (n - 1)
+```
+
+**Time:** O(k)
+
+**Space:** O(1)
+
+**Key Learning:**
+Each `n & (n - 1)` removes one set bit, making the algorithm proportional to the number of `1`s rather than the total number of bits.
+
+---
