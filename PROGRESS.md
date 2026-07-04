@@ -36,7 +36,7 @@
 - [x] Min Stack
 - [x] Evaluate Reverse Polish Notation
 - [x] Daily Temperatures
-- [ ] Car Fleet
+- [x] Car Fleet
 - [ ] Largest Rectangle In Histogram
 
 ## Dynamic Programming
@@ -44,3 +44,13 @@
 - [ ] Climbing Stairs
 - [ ] House Robber
 - [ ] Coin Change
+
+## Bit Manipulation
+
+- [x] Single Number
+- [ ] Number of 1 Bits
+- [ ] Counting Bits
+- [ ] Reverse Bits
+- [ ] Missing Number
+- [ ] Sum of Two Integers
+- [ ] Reverse Integer
