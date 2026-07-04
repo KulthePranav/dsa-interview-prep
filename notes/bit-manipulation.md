@@ -375,64 +375,58 @@ bits(6)
 1 + bits(2)
 ```
 
-## Offset
+# Offset Technique (Counting Bits)
 
-The offset stores the largest power of 2 less than or equal to the current number.
+## What is Offset?
 
-Example
+The **offset** is the largest power of 2 less than or equal to the current number.
 
-```
-i = 5
+Example:
 
-offset = 4
-```
+| i | Offset |
+|---|--------|
+| 1 | 1 |
+| 2 | 2 |
+| 3 | 2 |
+| 4 | 4 |
+| 5 | 4 |
+| 6 | 4 |
+| 7 | 4 |
+| 8 | 8 |
 
-```
-5
+---
 
-=
-
-4 + 1
-```
-
-So
-
-```
-dp[5]
-
-=
-
-1 + dp[1]
-```
-
-### DP Formula
+## DP Formula
 
 ```python
 dp[i] = 1 + dp[i - offset]
 ```
 
-### Updating Offset
+The leading `1` (power of 2) contributes one set bit, and `dp[i - offset]` has already been computed.
 
-Whenever we reach the next power of 2:
+---
 
-```
-1
-2
-4
-8
-16
-...
-```
+## Updating Offset
 
-Update
-
-```python
-offset = i
-```
+Whenever `i` reaches the next power of 2:
 
 ```python
 if offset * 2 == i:
     offset = i
+```
+
+---
+
+## Example
+
+```
+i = 6
+
+offset = 4
+
+6 = 4 + 2
+
+dp[6] = 1 + dp[2]
 ```
 
 ### Approach
