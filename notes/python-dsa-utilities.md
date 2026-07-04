@@ -1201,7 +1201,7 @@ for p, s in zip(position, speed):
 
 ---
 
-# XOR Operator (`^`)
+# `XOR Operator (^)`
 
 The XOR (Exclusive OR) operator compares the bits of two numbers.
 
@@ -1270,5 +1270,79 @@ Output:
 - Find Duplicate
 - Swap without temporary variable
 - Bit Manipulation problems
+
+---
+
+# `Brian Kernighan's Algorithm`
+
+A fast algorithm to count the number of set bits (`1`s) in a binary number.
+
+## Core Idea
+
+```python
+n = n & (n - 1)
+```
+
+removes the **rightmost set bit** from `n`.
+
+## Example
+
+```
+n = 12
+
+1100
+```
+
+Subtract one:
+
+```
+1011
+```
+
+AND operation:
+
+```
+1100
+1011
+----
+1000
+```
+
+One `1` bit has been removed.
+
+## Why Does It Work?
+
+Subtracting `1`:
+
+- Flips the rightmost `1` to `0`.
+- Turns all trailing `0`s into `1`s.
+
+ANDing with the original number clears only that rightmost set bit.
+
+## Template
+
+```python
+count = 0
+
+while n:
+    count += 1
+    n = n & (n - 1)
+```
+
+## Time Complexity
+
+```
+O(number of set bits)
+```
+
+Instead of checking every bit.
+
+## Common DSA Applications
+
+- Number of 1 Bits
+- Counting Set Bits
+- Power of Two
+- Single Number
+- Bit Masking problems
 
 ---
