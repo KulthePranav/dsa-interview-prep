@@ -1200,3 +1200,75 @@ for p, s in zip(position, speed):
 - Interval problems
 
 ---
+
+# XOR Operator (`^`)
+
+The XOR (Exclusive OR) operator compares the bits of two numbers.
+
+```python
+a ^ b
+```
+
+## XOR Truth Table
+
+| A | B | A ^ B |
+|---|---|-------|
+| 0 | 0 | 0 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 0 |
+
+Bits are `1` only when they are different.
+
+## Important Properties
+
+```python
+a ^ a = 0
+```
+
+```python
+a ^ 0 = a
+```
+
+```python
+a ^ b ^ a = b
+```
+
+XOR is:
+
+- Commutative
+- Associative
+
+So order does not matter.
+
+## Example
+
+```python
+5 ^ 5
+```
+
+Output:
+
+```python
+0
+```
+
+```python
+5 ^ 0
+```
+
+Output:
+
+```python
+5
+```
+
+## Common DSA Applications
+
+- Single Number
+- Missing Number
+- Find Duplicate
+- Swap without temporary variable
+- Bit Manipulation problems
+
+---
