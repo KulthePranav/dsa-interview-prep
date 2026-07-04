@@ -296,3 +296,221 @@ Use n & (n - 1)
 Each `n & (n - 1)` removes one set bit, making the algorithm proportional to the number of `1`s rather than the total number of bits.
 
 ---
+
+## 338. Counting Bits
+
+**Pattern:** Dynamic Programming + Bit Manipulation
+
+**Signal:**
+- Need the count of set bits for every number.
+- Results for smaller numbers can be reused.
+- Looking for better than O(n log n).
+
+### Brute Force Idea
+
+For every number:
+
+1. Count set bits using Brian Kernighan's Algorithm.
+2. Store the answer.
+
+```python
+output = []
+
+for num in range(n + 1):
+
+    count = 0
+
+    while num:
+        count += 1
+        num &= (num - 1)
+
+    output.append(count)
+```
+
+Time:
+
+```
+O(n log n)
+```
+
+## Better Observation
+
+Look at the answers:
+
+| Number | Binary | Set Bits |
+|--------:|:------:|---------:|
+| 0 | 000 | 0 |
+| 1 | 001 | 1 |
+| 2 | 010 | 1 |
+| 3 | 011 | 2 |
+| 4 | 100 | 1 |
+| 5 | 101 | 2 |
+| 6 | 110 | 2 |
+| 7 | 111 | 3 |
+| 8 |1000 | 1 |
+
+Notice:
+
+```
+4 = 100
+
+5 = 100 + 001
+
+6 = 100 + 010
+
+7 = 100 + 011
+```
+
+The leading `1` contributes one set bit.
+
+Everything after it has already been computed.
+
+Therefore:
+
+```
+bits(6)
+
+=
+
+1 + bits(2)
+```
+
+## Offset
+
+The offset stores the largest power of 2 less than or equal to the current number.
+
+Example
+
+```
+i = 5
+
+offset = 4
+```
+
+```
+5
+
+=
+
+4 + 1
+```
+
+So
+
+```
+dp[5]
+
+=
+
+1 + dp[1]
+```
+
+### DP Formula
+
+```python
+dp[i] = 1 + dp[i - offset]
+```
+
+### Updating Offset
+
+Whenever we reach the next power of 2:
+
+```
+1
+2
+4
+8
+16
+...
+```
+
+Update
+
+```python
+offset = i
+```
+
+```python
+if offset * 2 == i:
+    offset = i
+```
+
+### Approach
+
+1. Initialize DP array.
+2. Keep track of the current power of two.
+3. Compute answers using previously computed values.
+
+### Template
+
+```python
+dp = [0] * (n + 1)
+
+offset = 1
+
+for i in range(1, n + 1):
+
+    if offset * 2 == i:
+        offset = i
+
+    dp[i] = 1 + dp[i - offset]
+
+return dp
+```
+
+### Alternative Solution (Brian Kernighan)
+
+```python
+output = []
+
+for num in range(n + 1):
+
+    count = 0
+
+    while num:
+        count += 1
+        num &= (num - 1)
+
+    output.append(count)
+
+return output
+```
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| DP + Offset | O(n) | O(n) |
+| Brian Kernighan | O(n log n) | O(n) |
+
+
+### Pattern Recognition
+
+```
+Need answers for every number?
+
+↓
+
+Can previous answers help?
+
+↓
+
+DP
+
+↓
+
+Power of 2 involved?
+
+↓
+
+Use Offset
+```
+
+**Time:** O(n)
+
+**Space:** O(n)
+
+**Key Learning:**
+Numbers between two consecutive powers of 2 share the same pattern. The current answer equals one (for the leading set bit) plus the answer for the remaining part.
+
+---
