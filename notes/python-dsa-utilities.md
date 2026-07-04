@@ -1346,3 +1346,531 @@ Instead of checking every bit.
 - Bit Masking problems
 
 ---
+
+# Bit Manipulation
+
+Bit manipulation operates directly on the binary representation of numbers.
+
+Example:
+
+```text
+Decimal: 13
+
+Binary : 1101
+```
+
+---
+
+# Binary Representation
+
+| Decimal | Binary |
+|---------:|:------:|
+| 0 | 0000 |
+| 1 | 0001 |
+| 2 | 0010 |
+| 3 | 0011 |
+| 4 | 0100 |
+| 5 | 0101 |
+| 6 | 0110 |
+| 7 | 0111 |
+| 8 | 1000 |
+
+---
+
+# AND (`&`)
+
+Returns `1` only if both bits are `1`.
+
+Truth Table
+
+| A | B | A & B |
+|---|---|-------|
+| 0 | 0 | 0 |
+| 0 | 1 | 0 |
+| 1 | 0 | 0 |
+| 1 | 1 | 1 |
+
+Example
+
+```python
+5 & 3
+```
+
+```
+0101
+0011
+----
+0001
+```
+
+Output
+
+```python
+1
+```
+
+### Common Uses
+
+- Check whether a bit is set
+- Brian Kernighan's Algorithm
+- Bit Masking
+
+---
+
+# OR (`|`)
+
+Returns `1` if either bit is `1`.
+
+Truth Table
+
+| A | B | A \| B |
+|---|---|--------|
+| 0 | 0 | 0 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 1 |
+
+Example
+
+```python
+5 | 3
+```
+
+```
+0101
+0011
+----
+0111
+```
+
+Output
+
+```python
+7
+```
+
+### Common Uses
+
+- Turn ON bits
+- Merge bit masks
+
+---
+
+# XOR (`^`)
+
+Returns `1` only when bits are different.
+
+Truth Table
+
+| A | B | A ^ B |
+|---|---|-------|
+| 0 | 0 | 0 |
+| 0 | 1 | 1 |
+| 1 | 0 | 1 |
+| 1 | 1 | 0 |
+
+Example
+
+```python
+5 ^ 3
+```
+
+```
+0101
+0011
+----
+0110
+```
+
+Output
+
+```python
+6
+```
+
+### Important Properties
+
+```python
+a ^ a = 0
+```
+
+```python
+a ^ 0 = a
+```
+
+```python
+a ^ b ^ a = b
+```
+
+### Common Uses
+
+- Single Number
+- Missing Number
+- Swap values
+- Bit Manipulation
+
+---
+
+# NOT (`~`)
+
+Flips every bit.
+
+Example
+
+```python
+~5
+```
+
+Output
+
+```python
+-6
+```
+
+Why?
+
+```
+5
+
+00000101
+
+↓
+
+11111010
+```
+
+Python stores negative numbers using **two's complement**.
+
+---
+
+# Left Shift (`<<`)
+
+Shifts bits to the left.
+
+```python
+5 << 1
+```
+
+```
+0101
+
+↓
+
+1010
+```
+
+Output
+
+```python
+10
+```
+
+Equivalent to
+
+```python
+5 * 2
+```
+
+---
+
+```python
+5 << 2
+```
+
+Output
+
+```python
+20
+```
+
+Equivalent to
+
+```python
+5 * 4
+```
+
+### Common Uses
+
+- Multiply by powers of 2
+- Bit Masking
+
+---
+
+# Right Shift (`>>`)
+
+Shifts bits to the right.
+
+```python
+20 >> 1
+```
+
+```
+10100
+
+↓
+
+01010
+```
+
+Output
+
+```python
+10
+```
+
+Equivalent to
+
+```python
+20 // 2
+```
+
+---
+
+```python
+20 >> 2
+```
+
+Output
+
+```python
+5
+```
+
+Equivalent to
+
+```python
+20 // 4
+```
+
+### Common Uses
+
+- Divide by powers of 2
+- Extract bits
+
+---
+
+# Check if a Bit is Set
+
+Check whether the 2nd bit is set.
+
+```python
+num = 10
+
+if num & (1 << 2):
+    print("Set")
+```
+
+---
+
+# Set a Bit
+
+```python
+num |= (1 << i)
+```
+
+Example
+
+```python
+num = 8
+
+num |= (1 << 1)
+```
+
+```
+1000
+
+↓
+
+1010
+```
+
+Output
+
+```python
+10
+```
+
+---
+
+# Clear a Bit
+
+```python
+num &= ~(1 << i)
+```
+
+Example
+
+```python
+num = 10
+
+num &= ~(1 << 1)
+```
+
+```
+1010
+
+↓
+
+1000
+```
+
+Output
+
+```python
+8
+```
+
+---
+
+# Toggle a Bit
+
+```python
+num ^= (1 << i)
+```
+
+Example
+
+```python
+num = 10
+
+num ^= (1 << 1)
+```
+
+```
+1010
+
+↓
+
+1000
+```
+
+Running it again:
+
+```
+1000
+
+↓
+
+1010
+```
+
+---
+
+# Brian Kernighan's Algorithm
+
+Removes the rightmost set bit.
+
+```python
+n = n & (n - 1)
+```
+
+Example
+
+```
+110100
+
+↓
+
+110000
+```
+
+Only one set bit is removed.
+
+Template
+
+```python
+count = 0
+
+while n:
+    count += 1
+    n &= (n - 1)
+```
+
+Time
+
+```
+O(number of set bits)
+```
+
+---
+
+# Common Interview Patterns
+
+| Problem | Trick |
+|----------|-------|
+| Single Number | XOR |
+| Number of 1 Bits | Brian Kernighan |
+| Missing Number | XOR |
+| Reverse Bits | Bit Shifting |
+| Counting Bits | DP + Bit Manipulation |
+| Sum of Two Integers | XOR + AND |
+| Power of Two | `n & (n-1)` |
+| Bit Masking | `<<`, `>>`, `&`, `|` |
+
+---
+
+# Complexity
+
+| Operation | Complexity |
+|------------|------------|
+| AND | O(1) |
+| OR | O(1) |
+| XOR | O(1) |
+| NOT | O(1) |
+| Left Shift | O(1) |
+| Right Shift | O(1) |
+
+---
+
+# Quick Revision
+
+| Operator | Meaning |
+|----------|---------|
+| `&` | AND |
+| `|` | OR |
+| `^` | XOR |
+| `~` | NOT |
+| `<<` | Left Shift |
+| `>>` | Right Shift |
+| `n & (n-1)` | Remove rightmost set bit |
+| `n & 1` | Check if odd |
+| `1 << i` | 2^i |
+| `n >> i` | Divide by 2^i |
+
+---
+
+# Remember These Identities
+
+```python
+a ^ a = 0
+```
+
+```python
+a ^ 0 = a
+```
+
+```python
+n & (n - 1)
+```
+
+Removes the rightmost set bit.
+
+```python
+n & 1
+```
+
+Checks if the number is odd.
+
+```python
+1 << i
+```
+
+Creates a bit mask for the `i`th bit.
+
+```python
+n >> i
+```
+
+Moves the `i`th bit to the least significant position.
+
+---
