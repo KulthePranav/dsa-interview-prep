@@ -307,3 +307,15 @@ Maintain a monotonic stack of indices. When a larger element appears, resolve al
 Sort by position (closest to target first) and use a monotonic stack of arrival times to determine fleet formation.
 
 ---
+
+## 136. Single Number
+→ Bit Manipulation (XOR)
+
+**Signal:**
+- Every element appears twice except one.
+- Need O(n) time and O(1) extra space.
+
+**Key Learning:**
+XOR cancels duplicate values (`a ^ a = 0`), leaving only the unique element.
+
+---
