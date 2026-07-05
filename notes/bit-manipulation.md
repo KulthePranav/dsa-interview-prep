@@ -508,3 +508,183 @@ Use Offset
 Numbers between two consecutive powers of 2 share the same pattern. The current answer equals one (for the leading set bit) plus the answer for the remaining part.
 
 ---
+
+## 190. Reverse Bits
+
+**Pattern:** Bit Manipulation (Bit Shifting)
+
+**Signal:**
+- Reverse the bits of a binary number.
+- Process bits individually.
+- Use bit shifts and bitwise operators.
+
+### Key Idea
+
+For each bit:
+
+1. Extract the current bit.
+2. Move it to its reversed position.
+3. Add it to the answer.
+
+### Extracting a Bit
+
+```python
+bit = (n >> i) & 1
+```
+
+Example:
+
+```
+n = 13
+
+Binary
+
+1101
+```
+
+Extract bit at position 2:
+
+```
+1101 >> 2
+
+=
+
+0011
+
+0011 & 0001
+
+=
+
+1
+```
+
+### Placing the Bit
+
+Move the extracted bit to its reversed position.
+
+```python
+bit << (31 - i)
+```
+
+Example
+
+```
+Current bit position
+
+2
+
+↓
+
+Reversed position
+
+29
+```
+
+### Building the Answer
+
+Use OR to place the bit.
+
+```python
+res = res | (bit << (31 - i))
+```
+
+Equivalent shorthand:
+
+```python
+res |= bit << (31 - i)
+```
+
+### Visualization
+
+Suppose
+
+```
+n
+
+00000000000000000000000000000101
+```
+
+Iteration
+
+```
+LSB = 1
+
+↓
+
+Move to MSB
+
+10000000000000000000000000000000
+```
+
+Repeat for every bit.
+
+### Approach
+
+1. Initialize result as 0.
+2. Iterate through all 32 bits.
+3. Extract one bit at a time.
+4. Place it at the mirrored position.
+5. Return the reversed integer.
+
+### Template
+
+```python
+res = 0
+
+for i in range(32):
+    bit = (n >> i) & 1
+    res |= bit << (31 - i)
+
+return res
+```
+
+### Alternative Solution (Shift Result)
+
+Instead of placing each bit directly, shift the result left and append the current least significant bit.
+
+```python
+res = 0
+
+for _ in range(32):
+    res = (res << 1) | (n & 1)
+    n >>= 1
+
+return res
+```
+
+This is equally efficient and often considered cleaner.
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Extract & Place | O(32) | O(1) |
+| Shift Result | O(32) | O(1) |
+
+
+### Pattern Recognition
+
+```text
+Need to reverse bits?
+
+↓
+
+Extract one bit
+
+↓
+
+Shift to mirrored position
+
+↓
+
+Build answer
+```
+
+**Time:** O(32) ≈ O(1)
+
+**Space:** O(1)
+
+**Key Learning:**
+Right shift extracts bits, left shift repositions them, and OR combines them into the final reversed number.
+
+---
