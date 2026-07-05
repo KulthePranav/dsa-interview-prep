@@ -6,6 +6,7 @@
 | 2 | Number of 1 Bits | Easy | Brian Kernighan's Algorithm |
 | 3 | Counting Bits | Easy | Dynamic Programming + Bit Manipulation |
 | 4 | Reverse Bits | Easy | Bit Shifting |
+| 5 | Missing Number | Easy | XOR |
 
 ## Concepts
 
@@ -18,3 +19,4 @@
 - Brian Kernighan's Algorithm
 - Offset Technique
 - Bit Masking
+- Sum Formula
