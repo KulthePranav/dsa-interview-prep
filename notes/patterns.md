@@ -355,3 +355,16 @@ Use DP with the nearest power of 2 (`offset`) to build answers in O(n).
 Extract each bit using right shift and place it in the reversed position using left shift.
 
 ---
+
+## 268. Missing Number
+→ Bit Manipulation (XOR)
+
+**Signal:**
+- Numbers range from 0 to n.
+- Exactly one number is missing.
+- Need O(n) time and O(1) extra space.
+
+**Key Learning:**
+XOR all indices and numbers. Matching values cancel out, leaving the missing number.
+
+---
