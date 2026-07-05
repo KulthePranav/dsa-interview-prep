@@ -343,3 +343,15 @@ XOR cancels duplicate values (`a ^ a = 0`), leaving only the unique element.
 Use DP with the nearest power of 2 (`offset`) to build answers in O(n).
 
 ---
+
+## 190. Reverse Bits
+→ Bit Manipulation (Bit Shifting)
+
+**Signal:**
+- Reverse the binary representation of a number.
+- Extract and reposition individual bits.
+
+**Key Learning:**
+Extract each bit using right shift and place it in the reversed position using left shift.
+
+---
