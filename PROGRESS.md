@@ -48,9 +48,9 @@
 ## Bit Manipulation
 
 - [x] Single Number
-- [ ] Number of 1 Bits
-- [ ] Counting Bits
-- [ ] Reverse Bits
-- [ ] Missing Number
+- [x] Number of 1 Bits
+- [x] Counting Bits
+- [x] Reverse Bits
+- [x] Missing Number
 - [ ] Sum of Two Integers
 - [ ] Reverse Integer
