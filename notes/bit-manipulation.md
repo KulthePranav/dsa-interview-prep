@@ -688,3 +688,191 @@ Build answer
 Right shift extracts bits, left shift repositions them, and OR combines them into the final reversed number.
 
 ---
+
+## 268. Missing Number
+
+**Pattern:** Bit Manipulation (XOR)
+
+**Signal:**
+- Array contains numbers from `0` to `n`.
+- Exactly one number is missing.
+- Looking for O(n) time and O(1) space.
+
+
+### Why XOR?
+
+XOR has these properties:
+
+```python
+a ^ a = 0
+```
+
+```python
+a ^ 0 = a
+```
+
+```python
+a ^ b ^ a = b
+```
+
+All matching numbers cancel each other.
+
+### Key Idea
+
+XOR together:
+
+- Every index (`0` to `n-1`)
+- Every value in the array
+- The number `n`
+
+Since every number except the missing one appears exactly twice (once as an index and once as a value), they cancel out.
+
+The remaining value is the missing number.
+
+
+### Example
+
+```
+nums = [3, 0, 1]
+```
+
+```
+Expected numbers:
+
+0 1 2 3
+```
+
+Initialize:
+
+```
+res = 3
+```
+
+Iteration
+
+```
+res ^= 0 ^ 3
+
+↓
+
+0
+```
+
+```
+res ^= 1 ^ 0
+
+↓
+
+1
+```
+
+```
+res ^= 2 ^ 1
+
+↓
+
+2
+```
+
+Answer:
+
+```
+2
+```
+
+### Why Initialize with `len(nums)`?
+
+Indices only go from:
+
+```
+0
+
+to
+
+n - 1
+```
+
+The value `n` has no corresponding index.
+
+Therefore we start with:
+
+```python
+res = len(nums)
+```
+
+so every number from `0` to `n` participates exactly once.
+
+### Approach
+
+1. Initialize `res = n`.
+2. XOR every index.
+3. XOR every array element.
+4. Return the remaining value.
+
+### Template
+
+```python
+res = len(nums)
+
+for i in range(len(nums)):
+    res ^= i
+    res ^= nums[i]
+
+return res
+```
+
+### Alternative Solution (Math Formula)
+
+Use the sum of the first `n` natural numbers.
+
+```python
+n = len(nums)
+
+expected = n * (n + 1) // 2
+
+return expected - sum(nums)
+```
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| XOR | O(n) | O(1) |
+| Math Formula | O(n) | O(1) |
+
+### Pattern Recognition
+
+```text
+Numbers from 0 to n?
+
+↓
+
+One missing?
+
+↓
+
+Need O(1) space?
+
+↓
+
+Think XOR
+```
+
+or
+
+```text
+Need expected total?
+
+↓
+
+Use Sum Formula
+```
+
+**Time:** O(n)
+
+**Space:** O(1)
+
+**Key Learning:**
+When every value except one appears exactly twice across two collections (indices and values), XOR naturally cancels duplicates and reveals the missing value.
+
+---
