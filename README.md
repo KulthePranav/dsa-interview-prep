@@ -28,7 +28,7 @@ A structured collection of Data Structures & Algorithms solutions, notes, and in
 | Backtracking | 0 | [📂 Folder](./Backtracking/) | [📝 Notes](./notes/backtracking.md) |
 | Graphs | 0 | [📂 Folder](./Graphs/) | [📝 Notes](./notes/graphs.md) |
 | Dynamic Programming | 0 | [📂 Folder](./Dynamic-Programming/) | [📝 Notes](./notes/dynamic-programming.md) |
-| Bit Manipulation | 1 | [📂 Folder](./Bit-Manipulation/) | [📝 Notes](./notes/bit-manipulation.md) |
+| Bit Manipulation | 5 | [📂 Folder](./Bit-Manipulation/) | [📝 Notes](./notes/bit-manipulation.md) |
 
 ## Repository Structure
 
