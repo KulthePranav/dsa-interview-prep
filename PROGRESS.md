@@ -38,7 +38,7 @@
 - [x] Evaluate Reverse Polish Notation
 - [x] Daily Temperatures
 - [x] Car Fleet
-- [ ] Largest Rectangle In Histogram
+- [x] Largest Rectangle In Histogram
 
 ## Dynamic Programming
 
