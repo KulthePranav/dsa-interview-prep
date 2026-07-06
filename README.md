@@ -20,7 +20,7 @@ A structured collection of Data Structures & Algorithms solutions, notes, and in
 | Arrays & Hashing | 9 | [📂 Folder](./Arrays-Hashing/) | [📝 Notes](./notes/arrays-hashing.md) |
 | Two Pointers | 6 | [📂 Folder](./Two-Pointers/) | [📝 Notes](./notes/two-pointers.md) |
 | Sliding Window | 5 | [📂 Folder](./Sliding-Window/) | [📝 Notes](./notes/sliding-window.md) |
-| Stack | 5 | [📂 Folder](./Stack/) | [📝 Notes](./notes/stack.md) |
+| Stack | 6 | [📂 Folder](./Stack/) | [📝 Notes](./notes/stack.md) |
 | Binary Search | 0 | [📂 Folder](./Binary-Search/) | [📝 Notes](./notes/binary-search.md) |
 | Linked List | 0 | [📂 Folder](./Linked-List/) | [📝 Notes](./notes/linked-list.md) |
 | Trees | 0 | [📂 Folder](./Trees/) | [📝 Notes](./notes/trees.md) |
