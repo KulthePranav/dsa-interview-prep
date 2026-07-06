@@ -7,6 +7,7 @@
 | 3 | 3Sum | Medium | Sorting + Two Pointers |
 | 4 | Container With Most Water | Medium | Greedy + Two Pointers |
 | 5 | Trapping Rain Water | Hard | Two Pointers |
+| 6 | Reverse String | Easy | In-place Swapping |
 
 ## Concepts
 
