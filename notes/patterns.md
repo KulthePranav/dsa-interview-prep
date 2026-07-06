@@ -319,6 +319,18 @@ Sort by position (closest to target first) and use a monotonic stack of arrival 
 
 ---
 
+## 84. Largest Rectangle in Histogram
+→ Monotonic Increasing Stack
+
+**Signal:**
+- Need the largest area over contiguous bars.
+- Previous taller bars become invalid when a shorter bar appears.
+
+**Key Learning:**
+Maintain a monotonic increasing stack to efficiently determine the width of each rectangle.
+
+---
+
 ## 136. Single Number
 → Bit Manipulation (XOR)
 
