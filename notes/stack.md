@@ -971,3 +971,177 @@ Sort + Monotonic Stack
 Many "merge while moving" problems can be solved by sorting first and then maintaining a monotonic property (arrival time, distance, etc.)
 
 ---
+
+## 84. Largest Rectangle in Histogram
+
+**Pattern:** Monotonic Increasing Stack
+
+**Signal:**
+- Find the maximum rectangle/area.
+- Width depends on previous and next smaller elements.
+- Efficiently process increasing/decreasing heights.
+
+### Key Idea
+
+Maintain a stack of bars with increasing heights.
+
+When a shorter bar appears:
+
+- Taller bars can no longer expand.
+- Calculate their maximum possible area.
+- Keep the earliest valid starting index.
+
+### Why Store `(start_index, height)`?
+
+Instead of storing only heights, store:
+
+```python
+(start_index, height)
+```
+
+This allows the current shorter bar to extend as far left as the popped taller bar could.
+
+Example:
+
+```
+Heights
+
+2  4  5  3
+```
+
+When processing `3`:
+
+```
+Pop 5
+
+Area = 5 × 1
+```
+
+Pop `4`
+
+```
+Area = 4 × 2
+```
+
+Current bar `3` now starts from the earliest popped index.
+
+### Visualization
+
+```
+2 1 5 6 2 3
+
+Stack
+
+(0,2)
+
+↓
+
+1 is smaller
+
+Pop 2
+
+Area = 2 × 1
+
+Push (0,1)
+
+↓
+
+Push (2,5)
+
+↓
+
+Push (3,6)
+
+↓
+
+2 is smaller
+
+Pop 6
+
+Area = 6 × 1
+
+Pop 5
+
+Area = 5 × 2
+
+Push (2,2)
+```
+
+### Approach
+
+1. Traverse every bar.
+2. Maintain an increasing stack.
+3. Pop taller bars when a shorter bar is encountered.
+4. Compute each popped bar's maximum area.
+5. Push the current bar with its earliest valid start.
+6. Process remaining stack after traversal.
+
+### Template
+
+```python
+max_area = 0
+stack = []
+
+for i, h in enumerate(heights):
+
+    start = i
+
+    while stack and stack[-1][1] > h:
+        index, height = stack.pop()
+        max_area = max(max_area, height * (i - index))
+        start = index
+
+    stack.append((start, h))
+
+for index, height in stack:
+    max_area = max(max_area, height * (len(heights) - index))
+
+return max_area
+```
+
+### Alternative Solution
+
+Use Previous Smaller Element (PSE) and Next Smaller Element (NSE).
+
+1. Compute previous smaller index.
+2. Compute next smaller index.
+3. Width = NSE - PSE - 1.
+4. Area = Width × Height.
+
+This also runs in **O(n)** but requires additional arrays.
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Monotonic Stack | O(n) | O(n) |
+| PSE + NSE Arrays | O(n) | O(n) |
+| Brute Force | O(n²) | O(1) |
+
+
+### Pattern Recognition
+
+```text
+Need maximum rectangle?
+
+↓
+
+Width depends on smaller bars?
+
+↓
+
+Need Previous/Next Smaller Element?
+
+↓
+
+Use Monotonic Increasing Stack
+```
+
+**Time:** O(n)
+
+**Space:** O(n)
+
+**Key Learning:**
+Each bar is pushed and popped at most once, making the monotonic stack an O(n) solution for finding maximum histogram areas.
+
+---
