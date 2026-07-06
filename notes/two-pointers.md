@@ -600,3 +600,115 @@ Two Pointers
 **Key Learning:**
 The smaller boundary always determines the trapped water.
 This allows us to process the array using two pointers instead of extra arrays.
+
+---
+
+## 344. Reverse String
+
+**Pattern:** Two Pointers (In-place Swapping)
+
+**Signal:**
+- Reverse an array or string.
+- In-place modification is required.
+- Minimize extra space.
+
+### Key Idea
+
+Use two pointers:
+
+- Left starts from the beginning.
+- Right starts from the end.
+
+Swap both elements and move the pointers toward the center.
+
+
+### Visualization
+
+```
+Input
+
+["h", "e", "l", "l", "o"]
+
+ l               r
+ h   e   l   l   o
+
+Swap
+
+ o   e   l   l   h
+     l       r
+
+Swap
+
+ o   l   l   e   h
+
+Done
+```
+
+### Approach
+
+1. Initialize two pointers.
+2. Swap the characters at both pointers.
+3. Move the left pointer forward.
+4. Move the right pointer backward.
+5. Continue until both pointers meet.
+
+### Template
+
+```python
+l, r = 0, len(s) - 1
+
+while l < r:
+    s[l], s[r] = s[r], s[l]
+    l += 1
+    r -= 1
+```
+
+### Alternative Solution (Python Built-in)
+
+```python
+s.reverse()
+```
+
+Or
+
+```python
+s[:] = s[::-1]
+```
+
+> **Note:** While these are concise, interviewers generally expect the two-pointer solution to demonstrate understanding of in-place algorithms.
+
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Two Pointers | O(n) | O(1) |
+| `reverse()` | O(n) | O(1) |
+| Slicing (`[::-1]`) | O(n) | O(n) |
+
+### Pattern Recognition
+
+```text
+Need to reverse in-place?
+
+↓
+
+Two ends involved?
+
+↓
+
+Use Two Pointers
+
+↓
+
+Swap until pointers meet
+```
+
+**Time:** O(n)
+
+**Space:** O(1)
+
+**Key Learning:**
+When an array or string needs to be reversed in-place, use two pointers moving toward the center while swapping elements.
+
+---
