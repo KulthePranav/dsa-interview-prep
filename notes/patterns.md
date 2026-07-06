@@ -165,6 +165,17 @@ Always move the smaller height because the larger height is not the limiting fac
 The smaller boundary determines how much water can be trapped.
 
 ---
+## 344. Reverse String
+→ Two Pointers (In-place Swapping)
+
+**Signal:**
+- Reverse an array/string in-place.
+- Extra space is not allowed.
+
+**Key Learning:**
+Use two pointers from both ends and swap elements until they meet.
+
+---
 
 ## 121. Best Time to Buy and Sell Stock
 → Sliding Window
