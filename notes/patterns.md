@@ -391,3 +391,16 @@ Extract each bit using right shift and place it in the reversed position using l
 XOR all indices and numbers. Matching values cancel out, leaving the missing number.
 
 ---
+
+## 704. Binary Search
+→ Binary Search
+
+**Signal:**
+- Input array is sorted.
+- Need efficient searching.
+- Looking for O(log n) solution.
+
+**Key Learning:**
+Repeatedly eliminate half of the search space by comparing the target with the middle element.
+
+---
