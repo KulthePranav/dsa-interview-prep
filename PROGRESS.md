@@ -40,6 +40,12 @@
 - [x] Car Fleet
 - [x] Largest Rectangle In Histogram
 
+## Binary Search
+
+- [x] Binary Search
+
+
+
 ## Dynamic Programming
 
 - [ ] Climbing Stairs
