@@ -404,3 +404,42 @@ XOR all indices and numbers. Matching values cancel out, leaving the missing num
 Repeatedly eliminate half of the search space by comparing the target with the middle element.
 
 ---
+
+## 74. Search a 2D Matrix
+→ Binary Search (Two Binary Searches)
+
+**Signal:**
+- Matrix rows are sorted.
+- First element of each row is greater than the last element of the previous row.
+- Need O(log(m × n)) or O(log m + log n) solution.
+
+**Key Learning:**
+First locate the candidate row, then perform Binary Search within that row.
+
+---
+
+## 875. Koko Eating Bananas
+→ Binary Search on Answer
+
+**Signal:**
+- Need to minimize/maximize a value.
+- Can validate whether a candidate answer is feasible.
+- Search space is a range of possible answers.
+
+**Key Learning:**
+Binary Search can be applied to the answer itself when the feasibility is monotonic.
+
+---
+
+## 153. Find Minimum in Rotated Sorted Array
+→ Modified Binary Search
+
+**Signal:**
+- Sorted array has been rotated.
+- Need minimum/rotation point.
+- Half of the array is always sorted.
+
+**Key Learning:**
+Use the sorted half to determine which side contains the minimum.
+
+---
