@@ -43,8 +43,9 @@
 ## Binary Search
 
 - [x] Binary Search
-
-
+- [x] Search a 2D Matrix
+- [x] Koko Eating Bananas
+- [x] Find Minimum in Rotated Sorted Array
 
 ## Dynamic Programming
 
