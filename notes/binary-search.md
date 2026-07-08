@@ -163,3 +163,673 @@ Python integers don't overflow, so either is fine.
 Binary Search works because each comparison removes half of the remaining search space, reducing the time complexity from O(n) to O(log n).
 
 ---
+
+## 74. Search a 2D Matrix
+
+**Pattern:** Binary Search (Two Binary Searches)
+
+**Signal:**
+- Each row is sorted.
+- Rows are globally ordered.
+- Need efficient searching.
+
+### Key Idea
+
+Treat the problem as two Binary Searches.
+
+1. Find the row that may contain the target.
+2. Perform Binary Search within that row.
+
+### Why Two Binary Searches?
+
+Since:
+
+```
+Last element of row i
+
+<
+
+First element of row i+1
+```
+
+Each row represents a distinct search range.
+
+Example
+
+```
+1   3   5   7
+
+10 11 16 20
+
+23 30 34 60
+```
+
+Target = 16
+
+```
+Find row
+
+↓
+
+10 <= 16 <= 20
+
+↓
+
+Binary Search inside row
+```
+
+### Visualization
+
+```
+Rows
+
+0
+
+1
+
+2
+
+↓
+
+Binary Search
+
+↓
+
+Row = 1
+
+↓
+
+10 11 16 20
+
+↓
+
+Binary Search
+
+↓
+
+Found
+```
+
+### Approach
+
+1. Binary Search the rows.
+2. Check whether the target lies within the current row.
+3. Binary Search that row.
+4. Return True if found.
+
+### Template
+
+```python
+l, r = 0, len(matrix) - 1
+
+while l <= r:
+
+    m = (l + r) // 2
+
+    if matrix[m][0] <= target <= matrix[m][-1]:
+
+        left, right = 0, len(matrix[m]) - 1
+
+        while left <= right:
+
+            middle = (left + right) // 2
+
+            if matrix[m][middle] == target:
+                return True
+
+            elif target < matrix[m][middle]:
+                right = middle - 1
+
+            else:
+                left = middle + 1
+
+        return False
+
+    elif target < matrix[m][0]:
+        r = m - 1
+
+    else:
+        l = m + 1
+
+return False
+```
+
+---
+
+### Alternative Solution (Treat Matrix as 1D)
+
+Since the matrix is globally sorted, imagine it as:
+
+```
+1 3 5 7 10 11 16 20 23 30 34 60
+```
+
+Binary Search over indices.
+
+Convert index back to row and column.
+
+```python
+rows = len(matrix)
+cols = len(matrix[0])
+
+left, right = 0, rows * cols - 1
+
+while left <= right:
+
+    mid = (left + right) // 2
+
+    row = mid // cols
+    col = mid % cols
+
+    value = matrix[row][col]
+
+    if value == target:
+        return True
+
+    elif target < value:
+        right = mid - 1
+
+    else:
+        left = mid + 1
+
+return False
+```
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Two Binary Searches | O(log m + log n) | O(1) |
+| Treat as 1D | O(log(m × n)) | O(1) |
+
+Since:
+
+```
+log(m × n)
+
+=
+
+log m + log n
+```
+
+Both have the same asymptotic complexity.
+
+### Pattern Recognition
+
+```text
+Rows are sorted?
+
+↓
+
+Rows don't overlap?
+
+↓
+
+Binary Search rows
+
+↓
+
+Binary Search columns
+```
+
+or
+
+```text
+Entire matrix behaves like one sorted array?
+
+↓
+
+Treat as 1D
+
+↓
+
+Binary Search
+```
+
+**Time:** O(log m + log n)
+
+**Space:** O(1)
+
+**Key Learning:**
+When rows are globally ordered, either perform two Binary Searches or treat the matrix as a flattened sorted array.
+
+---
+
+## 875. Koko Eating Bananas
+
+**Pattern:** Binary Search on Answer
+
+**Signal:**
+- Need the minimum or maximum valid value.
+- A candidate answer can be verified.
+- Feasibility changes monotonically.
+
+### Key Idea
+
+We're **not searching the array**.
+
+Instead, we're searching the possible eating speeds.
+
+```
+Speed
+
+1 2 3 4 5 ... maxPile
+```
+
+Each speed answers the question:
+
+> Can Koko finish within `h` hours?
+
+This is a monotonic property:
+
+```
+Speed ↑
+
+Hours Needed ↓
+```
+
+Once a speed works, every larger speed also works.
+
+### Why Binary Search Works
+
+Example
+
+```
+Hours allowed = 8
+
+Speed
+
+1 ❌
+2 ❌
+3 ❌
+4 ✅
+5 ✅
+6 ✅
+...
+```
+
+The answer space looks like
+
+```
+False False False True True True
+```
+
+Binary Search works whenever the search space is monotonic.
+
+### Visualization
+
+```
+Search Space
+
+1 ---------------- maxPile
+
+        mid
+
+Compute total hours
+
+↓
+
+hours <= h ?
+
+↓
+
+YES
+
+Try smaller speed
+
+↓
+
+NO
+
+Need faster speed
+```
+
+### Approach
+
+1. Lowest possible speed = 1.
+2. Highest possible speed = max(piles).
+3. Binary Search the speed.
+4. Compute hours required at that speed.
+5. If Koko can finish:
+   - save answer
+   - search left half
+6. Otherwise:
+   - search right half.
+
+### Template
+
+```python
+left, right = 1, max(piles)
+res = right
+
+while left <= right:
+
+    middle = (left + right) // 2
+    hours = 0
+
+    for pile in piles:
+        hours += math.ceil(pile / middle)
+
+    if hours <= h:
+        res = middle
+        right = middle - 1
+
+    else:
+        left = middle + 1
+
+return res
+```
+
+### Alternative Solution
+
+Instead of
+
+```python
+math.ceil(pile / speed)
+```
+
+use integer arithmetic:
+
+```python
+hours += (pile + speed - 1) // speed
+```
+
+This avoids floating-point operations and is generally preferred in interviews.
+
+Example
+
+```
+10 bananas
+
+Speed = 3
+
+(10 + 3 - 1) // 3
+
+12 // 3
+
+4
+```
+
+Equivalent to
+
+```
+ceil(10 / 3)
+```
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| `math.ceil()` | O(n log m) | O(1) |
+| Integer Ceiling Division | O(n log m) | O(1) |
+
+Where:
+
+- `n` = number of piles
+- `m` = maximum pile size
+
+
+### Pattern Recognition
+
+```text
+Need minimum valid answer?
+
+↓
+
+Can check if an answer works?
+
+↓
+
+True/False becomes monotonic?
+
+↓
+
+Binary Search on Answer
+```
+
+### Common Mistakes
+
+❌ Binary searching the piles.
+
+You're searching the **speed**, not the array.
+
+
+❌ Updating answer incorrectly.
+
+```python
+res = min(res, mid)
+```
+
+Since `mid` is always moving left after a valid answer, this can simply be:
+
+```python
+res = mid
+```
+
+❌ Forgetting ceiling division.
+
+```python
+pile // speed
+```
+
+is incorrect.
+
+Need
+
+```python
+ceil(pile / speed)
+```
+
+or
+
+```python
+(pile + speed - 1) // speed
+```
+
+**Time:** O(n log m)
+
+**Space:** O(1)
+
+**Key Learning:**
+Binary Search on Answer is applicable whenever candidate answers can be validated and the feasibility changes monotonically.
+
+---
+
+## 153. Find Minimum in Rotated Sorted Array
+
+**Pattern:** Modified Binary Search
+
+**Signal:**
+- Rotated sorted array.
+- Need minimum element.
+- O(log n) solution expected.
+
+### Key Idea
+
+In a rotated sorted array:
+
+- At least one half is always sorted.
+- The minimum lies in the unsorted half.
+- If the current search space is already sorted, the leftmost element is the minimum.
+
+### Visualization
+
+Example:
+
+```
+4 5 6 7 0 1 2
+
+l           r
+      m
+```
+
+Left half:
+
+```
+4 5 6 7
+```
+
+is sorted.
+
+Minimum must be in the right half.
+
+Another example:
+
+```
+0 1 2 4 5
+
+l       r
+```
+
+Entire search space is sorted.
+
+Minimum = `nums[l]`.
+
+
+### Approach
+
+1. Initialize `res` with the first element.
+2. While `left <= right`:
+   - If the current range is sorted, update `res` with `nums[left]` and stop.
+   - Find the middle.
+   - Update the minimum.
+   - If the left half is sorted, search the right half.
+   - Otherwise, search the left half.
+
+### Template
+
+```python
+res = nums[0]
+l, r = 0, len(nums) - 1
+
+while l <= r:
+
+    if nums[l] < nums[r]:
+        res = min(res, nums[l])
+        break
+
+    m = (l + r) // 2
+    res = min(res, nums[m])
+
+    if nums[m] >= nums[l]:
+        l = m + 1
+    else:
+        r = m - 1
+
+return res
+```
+
+### Why `nums[m] >= nums[l]`?
+
+If
+
+```python
+nums[m] >= nums[l]
+```
+
+then
+
+```
+l -------- m
+```
+
+is sorted.
+
+Since `nums[l]` has already been considered, the minimum cannot be inside this sorted half.
+
+Search the right half.
+
+Otherwise,
+
+```
+m -------- r
+```
+
+is sorted, meaning the rotation point (minimum) lies in the left half.
+
+
+### Alternative Solution
+
+Instead of maintaining `res`, compare the middle element with the right element:
+
+```python
+left, right = 0, len(nums) - 1
+
+while left < right:
+
+    mid = (left + right) // 2
+
+    if nums[mid] > nums[right]:
+        left = mid + 1
+    else:
+        right = mid
+
+return nums[left]
+```
+
+This is the most common interview solution because it directly converges on the minimum without an extra variable.
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Track `res` (Your Solution) | O(log n) | O(1) |
+| Compare with Right Pointer | O(log n) | O(1) |
+
+
+### Pattern Recognition
+
+```text
+Sorted array?
+
+↓
+
+Rotated?
+
+↓
+
+Need minimum?
+
+↓
+
+One half is sorted
+
+↓
+
+Discard the sorted half
+```
+
+### Common Mistakes
+
+❌ Forgetting to check if the current range is already sorted.
+
+```python
+if nums[left] < nums[right]:
+```
+
+Without this, you'll do unnecessary iterations.
+
+❌ Comparing with the wrong boundary.
+
+Use:
+
+```python
+nums[mid] >= nums[left]
+```
+
+or
+
+```python
+nums[mid] > nums[right]
+```
+
+depending on the chosen approach.
+
+**Time:** O(log n)
+
+**Space:** O(1)
+
+**Key Learning:**
+In a rotated sorted array, one half is always sorted. Identify the sorted half and discard it to locate the rotation point efficiently.
+
+---
