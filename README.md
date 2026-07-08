@@ -21,7 +21,7 @@ A structured collection of Data Structures & Algorithms solutions, notes, and in
 | Two Pointers | 6 | [📂 Folder](./Two-Pointers/) | [📝 Notes](./notes/two-pointers.md) |
 | Sliding Window | 6 | [📂 Folder](./Sliding-Window/) | [📝 Notes](./notes/sliding-window.md) |
 | Stack | 6 | [📂 Folder](./Stack/) | [📝 Notes](./notes/stack.md) |
-| Binary Search | 1 | [📂 Folder](./Binary-Search/) | [📝 Notes](./notes/binary-search.md) |
+| Binary Search | 4 | [📂 Folder](./Binary-Search/) | [📝 Notes](./notes/binary-search.md) |
 | Linked List | 0 | [📂 Folder](./Linked-List/) | [📝 Notes](./notes/linked-list.md) |
 | Trees | 0 | [📂 Folder](./Trees/) | [📝 Notes](./notes/trees.md) |
 | Heap / Priority Queue | 0 | [📂 Folder](./Heap-Priority-Queue/) | [📝 Notes](./notes/heap-priority-queue.md) |
