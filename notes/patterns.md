@@ -443,3 +443,16 @@ Binary Search can be applied to the answer itself when the feasibility is monoto
 Use the sorted half to determine which side contains the minimum.
 
 ---
+
+## 33. Search in Rotated Sorted Array
+→ Modified Binary Search
+
+**Signal:**
+- Sorted array has been rotated.
+- Need O(log n) search.
+- One half of the array is always sorted.
+
+**Key Learning:**
+Identify the sorted half, determine whether the target lies within it, and discard the other half.
+
+---
