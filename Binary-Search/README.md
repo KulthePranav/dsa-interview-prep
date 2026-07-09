@@ -6,6 +6,7 @@
 | 2 | Search a 2D Matrix | Medium | Two Binary Searches |
 | 3 | Koko Eating Bananas | Medium | Binary Search on Answer |
 | 4 | Find Minimum in Rotated Sorted Array | Medium | Modified Binary Search |
+| 5 | Search in Rotated Sorted Array | Medium | Modified Binary Search |
 
 ## Concepts
 
