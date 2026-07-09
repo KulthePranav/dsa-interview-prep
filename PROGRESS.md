@@ -46,6 +46,8 @@
 - [x] Search a 2D Matrix
 - [x] Koko Eating Bananas
 - [x] Find Minimum in Rotated Sorted Array
+- [x] Search in Rotated Sorted Array
+- [ ] Time Based Key-Value Store
 
 ## Dynamic Programming
 
