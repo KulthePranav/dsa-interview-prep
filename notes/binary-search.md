@@ -833,3 +833,276 @@ depending on the chosen approach.
 In a rotated sorted array, one half is always sorted. Identify the sorted half and discard it to locate the rotation point efficiently.
 
 ---
+
+## 33. Search in Rotated Sorted Array
+
+**Pattern:** Modified Binary Search
+
+**Signal:**
+- Rotated sorted array.
+- Need O(log n) search.
+- Array contains unique elements.
+
+### Key Idea
+
+Unlike a normal Binary Search, the array is rotated.
+
+However:
+
+- One half is always sorted.
+- Determine which half is sorted.
+- Check whether the target belongs to that half.
+- Discard the other half.
+
+
+### Visualization
+
+Example
+
+```
+4 5 6 7 0 1 2
+```
+
+```
+l           r
+      m
+```
+
+Left half
+
+```
+4 5 6 7
+```
+
+is sorted.
+
+Target = 1
+
+Since
+
+```
+1 < 4
+```
+
+Target cannot be in the left half.
+
+Search the right half.
+
+
+Another example
+
+```
+6 7 1 2 3 4 5
+
+      m
+```
+
+Right half
+
+```
+2 3 4 5
+```
+
+is sorted.
+
+Target = 7
+
+Target isn't inside the sorted right half.
+
+Search the left half.
+
+### Approach
+
+1. Compute the middle index.
+2. If the target is found, return it.
+3. Determine which half is sorted.
+4. Check if the target lies inside the sorted half.
+5. Discard the other half.
+6. Repeat until found.
+
+
+### Template
+
+```python
+l, r = 0, len(nums) - 1
+
+while l <= r:
+
+    m = (l + r) // 2
+
+    if nums[m] == target:
+        return m
+
+    if nums[l] <= nums[m]:
+
+        if target < nums[l] or target > nums[m]:
+            l = m + 1
+        else:
+            r = m - 1
+
+    else:
+
+        if target > nums[r] or target < nums[m]:
+            r = m - 1
+        else:
+            l = m + 1
+
+return -1
+```
+
+### Understanding the Conditions
+
+#### Case 1: Left Half is Sorted
+
+```python
+nums[left] <= nums[mid]
+```
+
+Example
+
+```
+4 5 6 7 0 1 2
+
+Left side
+
+4 5 6 7
+```
+
+If
+
+```
+target < nums[left]
+
+OR
+
+target > nums[mid]
+```
+
+Target cannot be inside the sorted half.
+
+Search right.
+
+Otherwise,
+
+search left.
+
+
+#### Case 2: Right Half is Sorted
+
+Example
+
+```
+6 7 1 2 3 4 5
+```
+
+If
+
+```
+target > nums[right]
+
+OR
+
+target < nums[mid]
+```
+
+Target cannot be inside the sorted right half.
+
+Search left.
+
+Otherwise,
+
+search right.
+
+### Alternative Solution
+
+A slightly cleaner version checks whether the target lies **inside** the sorted half instead of checking whether it lies **outside**.
+
+```python
+if nums[left] <= nums[mid]:
+
+    if nums[left] <= target < nums[mid]:
+        right = mid - 1
+    else:
+        left = mid + 1
+
+else:
+
+    if nums[mid] < target <= nums[right]:
+        left = mid + 1
+    else:
+        right = mid - 1
+```
+
+Many interviewers prefer this because the conditions are easier to read.
+
+### Comparison
+
+| Approach | Time | Space |
+|-----------|------|--------|
+| Your Solution | O(log n) | O(1) |
+| Cleaner Condition Version | O(log n) | O(1) |
+
+
+### Pattern Recognition
+
+```text
+Sorted array?
+
+↓
+
+Rotated?
+
+↓
+
+Need O(log n)?
+
+↓
+
+One half is always sorted
+
+↓
+
+Check whether target belongs to sorted half
+
+↓
+
+Discard the other half
+```
+
+### Common Mistakes
+
+❌ Forgetting to identify the sorted half.
+
+
+❌ Using
+
+```python
+nums[left] < nums[mid]
+```
+
+instead of
+
+```python
+nums[left] <= nums[mid]
+```
+
+The equality is important when only one element remains.
+
+❌ Mixing up which side to discard.
+
+Always ask:
+
+> Is the target inside the sorted half?
+
+If yes → search there.
+
+Otherwise → search the other half.
+
+**Time:** O(log n)
+
+**Space:** O(1)
+
+**Key Learning:**
+In a rotated sorted array, one half is always sorted. Binary Search works by identifying the sorted half and determining whether the target belongs to it.
+
+---
