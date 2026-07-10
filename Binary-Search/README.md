@@ -7,6 +7,7 @@
 | 3 | Koko Eating Bananas | Medium | Binary Search on Answer |
 | 4 | Find Minimum in Rotated Sorted Array | Medium | Modified Binary Search |
 | 5 | Search in Rotated Sorted Array | Medium | Modified Binary Search |
+| 6 | Time Based Key-Value Store | Medium | Hash Map + Binary Search |
 
 ## Concepts
 
@@ -14,5 +15,10 @@
 - Binary Search on Answer
 - Modified Binary Search
 - Rotated Sorted Array
+- Binary Search on Historical Data
+- Hash Map + Binary Search
 - Monotonic Predicate
 - Search Space Reduction
+
+
+
