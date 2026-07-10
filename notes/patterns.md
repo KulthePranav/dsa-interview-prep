@@ -456,3 +456,16 @@ Use the sorted half to determine which side contains the minimum.
 Identify the sorted half, determine whether the target lies within it, and discard the other half.
 
 ---
+
+## 981. Time Based Key-Value Store
+→ Hash Map + Binary Search
+
+**Signal:**
+- Store historical values.
+- Retrieve the latest value before or at a given timestamp.
+- Data is inserted in increasing timestamp order.
+
+**Key Learning:**
+Use a Hash Map to group values by key and Binary Search to efficiently find the latest valid timestamp.
+
+---
