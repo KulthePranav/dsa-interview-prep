@@ -1106,3 +1106,242 @@ Otherwise → search the other half.
 In a rotated sorted array, one half is always sorted. Binary Search works by identifying the sorted half and determining whether the target belongs to it.
 
 ---
+
+## 981. Time Based Key-Value Store
+
+**Pattern:** Hash Map + Binary Search
+
+**Signal:**
+- Multiple values for the same key.
+- Need to retrieve the latest value at or before a timestamp.
+- Timestamps are inserted in increasing order.
+
+### Key Idea
+
+Store all values for a key in chronological order.
+
+```
+"foo"
+
+↓
+
+[
+    ("bar", 1),
+    ("bar2", 4),
+    ("bar3", 8),
+    ("bar4", 15)
+]
+```
+
+Since timestamps are sorted, Binary Search can efficiently find the latest valid timestamp.
+
+### Visualization
+
+```
+timestamp = 10
+
+1    4    8    15
+
+          ↑
+
+Latest timestamp ≤ 10
+
+↓
+
+Return "bar3"
+```
+
+### Data Structure
+
+```python
+{
+    key: [
+        [value, timestamp],
+        [value, timestamp],
+        ...
+    ]
+}
+```
+
+Example
+
+```python
+{
+    "foo": [
+        ["bar", 1],
+        ["bar2", 4],
+        ["bar3", 8]
+    ]
+}
+```
+
+### Approach
+
+#### set()
+
+1. If the key doesn't exist, create an empty list.
+2. Append the `(value, timestamp)` pair.
+3. Since timestamps are strictly increasing, the list remains sorted.
+
+#### get()
+
+1. Retrieve the list for the key.
+2. Binary Search for the largest timestamp ≤ target.
+3. Return its value.
+
+
+### Template
+
+```python
+class TimeMap:
+
+    def __init__(self):
+        self.store = {}
+
+    def set(self, key, value, timestamp):
+        if key not in self.store:
+            self.store[key] = []
+
+        self.store[key].append([value, timestamp])
+
+    def get(self, key, timestamp):
+
+        res = ""
+        values = self.store.get(key, [])
+
+        left, right = 0, len(values) - 1
+
+        while left <= right:
+
+            mid = (left + right) // 2
+
+            if values[mid][1] <= timestamp:
+                res = values[mid][0]
+                left = mid + 1
+
+            else:
+                right = mid - 1
+
+        return res
+```
+
+### Why Search Right After Finding a Valid Timestamp?
+
+Suppose
+
+```
+Target = 8
+
+Stored
+
+1
+4
+8
+12
+```
+
+At timestamp `8`
+
+```
+8 <= 8
+
+Valid
+
+↓
+
+Search right
+```
+
+Maybe another timestamp later is still ≤ target.
+
+We always want the **latest** valid timestamp.
+
+### Alternative Solution
+
+Use Python's `bisect_right`.
+
+```python
+from bisect import bisect_right
+
+values = self.store.get(key, [])
+
+index = bisect_right(values, timestamp, key=lambda x: x[1]) - 1
+
+return values[index][0] if index >= 0 else ""
+```
+
+> Note: While concise, interviewers often prefer implementing Binary Search manually unless they explicitly allow standard library helpers.
+
+### Comparison
+
+| Approach | set() | get() | Space |
+|-----------|-------|--------|-------|
+| Manual Binary Search | O(1) | O(log n) | O(n) |
+| `bisect_right` | O(1) | O(log n) | O(n) |
+
+### Pattern Recognition
+
+```text
+Need historical values?
+
+↓
+
+Multiple versions of same key?
+
+↓
+
+Need latest value before timestamp?
+
+↓
+
+Hash Map
+
++
+
+Binary Search
+```
+
+
+### Common Mistakes
+
+❌ Linear search in `get()`
+
+```python
+for value, time in values:
+```
+
+This gives **O(n)** lookup.
+
+
+❌ Sorting after every insertion.
+
+Timestamps are already guaranteed to be increasing.
+
+Simply append.
+
+❌ Returning immediately when
+
+```
+timestamp == values[mid][1]
+```
+
+Continue searching right because we want the **latest timestamp ≤ target**.
+
+**Time Complexity**
+
+```
+set() : O(1)
+
+get() : O(log n)
+```
+
+**Space Complexity**
+
+```
+O(total number of stored values)
+```
+
+**Key Learning:**
+When data is stored in sorted order over time, Binary Search can efficiently retrieve the latest valid historical record.
+
+---
