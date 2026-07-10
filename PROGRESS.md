@@ -47,7 +47,8 @@
 - [x] Koko Eating Bananas
 - [x] Find Minimum in Rotated Sorted Array
 - [x] Search in Rotated Sorted Array
-- [ ] Time Based Key-Value Store
+- [x] Time Based Key-Value Store
+- [ ] Median of Two Sorted Arrays
 
 ## Dynamic Programming
 
