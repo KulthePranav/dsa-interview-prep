@@ -1345,3 +1345,382 @@ O(total number of stored values)
 When data is stored in sorted order over time, Binary Search can efficiently retrieve the latest valid historical record.
 
 ---
+
+## 4. Median of Two Sorted Arrays
+
+**Pattern:** Binary Search on Partition
+
+**Signal:**
+- Two sorted arrays.
+- Need the median.
+- Arrays are already sorted.
+- O(log(min(m, n))) expected.
+
+## Key Idea
+
+Instead of merging both arrays, partition them into two halves such that:
+
+```
+Left Partition
+
+<=
+
+Right Partition
+```
+
+and
+
+```
+Number of elements on the left
+=
+Number of elements on the right
+(or one extra for odd length)
+```
+
+Once the partition is correct:
+
+```
+max(left)
+
+<=
+
+min(right)
+```
+
+the median can be computed immediately.
+
+## Why Binary Search the Smaller Array?
+
+Always perform Binary Search on the smaller array.
+
+```python
+if len(nums1) > len(nums2):
+    nums1, nums2 = nums2, nums1
+```
+
+Benefits:
+
+- Smaller search space
+- Valid partition indices
+- Time Complexity:
+
+```
+O(log(min(m,n)))
+```
+
+## Visualization
+
+```
+A
+
+1 3 8
+
+B
+
+7 9 10 11
+```
+
+Partition
+
+```
+1 3 | 8
+
+7 | 9 10 11
+```
+
+Left
+
+```
+1 3 7
+```
+
+Right
+
+```
+8 9 10 11
+```
+
+Need
+
+```
+max(left)
+
+<=
+
+min(right)
+
+7 <= 8
+```
+
+Correct Partition ✓
+
+## Partition Variables
+
+```
+i = partition index in A
+j = partition index in B
+```
+
+```python
+i = (left + right) // 2
+j = half - i
+```
+
+## Boundary Values
+
+Partition can occur at either end.
+
+Example
+
+```
+| 1 2 3
+```
+
+No left element exists.
+
+```
+Aleft = -∞
+```
+
+Example
+
+```
+1 2 3 |
+```
+
+No right element exists.
+
+```
+Aright = +∞
+```
+
+Python:
+
+```python
+Aleft = A[i - 1] if i > 0 else float("-inf")
+Aright = A[i] if i < len(A) else float("inf")
+
+Bleft = B[j - 1] if j > 0 else float("-inf")
+Bright = B[j] if j < len(B) else float("inf")
+```
+
+## Correct Partition
+
+Partition is valid if
+
+```python
+Aleft <= Bright
+and
+Bleft <= Aright
+```
+
+## Computing the Median
+
+### Odd Number of Elements
+
+Median is the first element of the right partition.
+
+```python
+min(Aright, Bright)
+```
+
+
+### Even Number of Elements
+
+Median is
+
+```
+(max(left) + min(right)) / 2
+```
+
+```python
+(max(Aleft, Bleft) + min(Aright, Bright)) / 2
+```
+
+## Adjusting the Partition
+
+### Case 1
+
+```
+Aleft > Bright
+```
+
+Partition is too far right.
+
+Move left.
+
+```python
+right = i - 1
+```
+
+### Case 2
+
+```
+Bleft > Aright
+```
+
+Partition is too far left.
+
+Move right.
+
+```python
+left = i + 1
+```
+
+## Template
+
+```python
+if len(A) > len(B):
+    A, B = B, A
+
+total = len(A) + len(B)
+half = total // 2
+
+left, right = 0, len(A)
+
+while True:
+
+    i = (left + right) // 2
+    j = half - i
+
+    Aleft = ...
+    Aright = ...
+    Bleft = ...
+    Bright = ...
+
+    if Aleft <= Bright and Bleft <= Aright:
+        ...
+
+    elif Aleft > Bright:
+        right = i - 1
+
+    else:
+        left = i + 1
+```
+
+## Actual Solution
+
+```python
+if len(nums1) > len(nums2):
+    nums1, nums2 = nums2, nums1
+
+A, B = nums1, nums2
+
+total = len(A) + len(B)
+half = total // 2
+
+left, right = 0, len(A)
+
+while True:
+    i = (left + right) // 2
+    j = half - i
+
+    Aleft = A[i - 1] if i > 0 else float("-inf")
+    Aright = A[i] if i < len(A) else float("inf")
+
+    Bleft = B[j - 1] if j > 0 else float("-inf")
+    Bright = B[j] if j < len(B) else float("inf")
+
+    if Aleft <= Bright and Bleft <= Aright:
+
+        if total % 2:
+            return min(Aright, Bright)
+
+        return (
+            max(Aleft, Bleft)
+            + min(Aright, Bright)
+        ) / 2
+
+    elif Aleft > Bright:
+        right = i - 1
+
+    else:
+        left = i + 1
+```
+
+## Alternative Solution (Brute Force)
+
+```python
+merged = sorted(nums1 + nums2)
+
+mid = len(merged) // 2
+
+if len(merged) % 2 == 0:
+    return (merged[mid - 1] + merged[mid]) / 2
+
+return merged[mid]
+```
+
+## Comparison
+
+| Approach | Time | Space |
+|----------|------|-------|
+| Merge + Sort | O((m+n) log(m+n)) | O(m+n) |
+| Binary Search on Partition | O(log(min(m,n))) | O(1) |
+
+## Pattern Recognition
+
+```text
+Two sorted arrays?
+
+↓
+
+Need median?
+
+↓
+
+O(log n) expected?
+
+↓
+
+Binary Search on Partition
+```
+
+## Common Mistakes
+
+❌ Binary searching the larger array.
+
+Always binary search the smaller array.
+
+❌ Forgetting boundary conditions.
+
+Use
+
+```python
+float("-inf")
+float("inf")
+```
+
+❌ Using
+
+```python
+Aleft < Bright
+```
+
+instead of
+
+```python
+Aleft <= Bright
+```
+
+❌ Forgetting the second condition
+
+```python
+Bleft <= Aright
+```
+
+Both conditions must hold.
+
+
+❌ Merging both arrays.
+
+The interviewer expects an O(log(min(m,n))) solution.
+
+**Time Complexity:** O(log(min(m,n)))
+
+**Space Complexity:** O(1)
+
+**Key Learning:**
+Binary Search can be performed on the partition of the smaller array to find the median without merging the arrays.
+
+---
