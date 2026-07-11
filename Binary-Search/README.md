@@ -8,6 +8,7 @@
 | 4 | Find Minimum in Rotated Sorted Array | Medium | Modified Binary Search |
 | 5 | Search in Rotated Sorted Array | Medium | Modified Binary Search |
 | 6 | Time Based Key-Value Store | Medium | Hash Map + Binary Search |
+| 7 | Median of Two Sorted Arrays | Hard | Binary Search on Partition |
 
 ## Concepts
 
@@ -19,6 +20,8 @@
 - Hash Map + Binary Search
 - Monotonic Predicate
 - Search Space Reduction
+- Partitioning
+- Sentinel Values (`±∞`)
 
 
 
