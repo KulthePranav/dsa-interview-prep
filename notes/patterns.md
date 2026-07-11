@@ -469,3 +469,16 @@ Identify the sorted half, determine whether the target lies within it, and disca
 Use a Hash Map to group values by key and Binary Search to efficiently find the latest valid timestamp.
 
 ---
+
+## 4. Median of Two Sorted Arrays
+→ Binary Search on Partition
+
+**Signal:**
+- Two sorted arrays.
+- Need the median.
+- O(log(min(m, n))) solution expected.
+
+**Key Learning:**
+Partition both arrays so that the left half contains half of the total elements and every element on the left is less than or equal to every element on the right.
+
+---
