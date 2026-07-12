@@ -12,8 +12,10 @@
 | 8 | Valid Sudoku | Medium | Hash Set Validation |
 | 9 | Longest Consecutive Sequence | Medium | Hash Set |
 | 10 | Concatenation of Array | Easy | Array Traversal |
+| 11 | Longest Common Prefix | Easy | Prefix Reduction |
+| 12 | Remove Element | Easy | Fast & Slow Pointers |
+| 13 | Majority Element | Easy | Boyer-Moore Voting Algorithm |
  
-
 
 
 ## Concepts
