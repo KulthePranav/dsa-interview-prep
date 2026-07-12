@@ -450,3 +450,562 @@ Copy using indices
 Pre-allocating the result array avoids repeated resizing and makes index-based problems easier to solve.
 
 ---
+
+## 14. Longest Common Prefix
+
+**Pattern:** Prefix Reduction
+
+**Signal:**
+- Multiple strings.
+- Need the longest common starting substring.
+- Prefix can only become shorter.
+
+## Approach
+
+1. Assume the first string is the common prefix.
+2. Compare it with every other string.
+3. While the current string doesn't start with the prefix:
+   - Remove the last character from the prefix.
+4. If the prefix becomes empty, return `""`.
+5. Return the remaining prefix.
+
+
+## Visualization
+
+```
+Input
+
+["flower","flow","flight"]
+
+prefix = "flower"
+
+Compare with "flow"
+
+flower ❌
+
+Reduce
+
+flowe ❌
+
+flow ✅
+
+prefix = "flow"
+
+Compare with "flight"
+
+flow ❌
+
+flo ❌
+
+fl ✅
+
+Answer
+
+"fl"
+```
+
+
+## Template
+
+```python
+prefix = strs[0]
+
+for word in strs[1:]:
+
+    while word.find(prefix) != 0:
+        prefix = prefix[:-1]
+
+        if prefix == "":
+            return ""
+```
+
+
+## Actual Solution
+
+```python
+if len(strs) == 0:
+    return ""
+
+prefix = strs[0]
+
+for i in range(1, len(strs)):
+    while strs[i].find(prefix) != 0:
+        prefix = prefix[:-1]
+
+        if prefix == "":
+            return ""
+
+return prefix
+```
+
+## Alternative Solution 1 (Character-by-Character)
+
+```python
+prefix = ""
+
+for chars in zip(*strs):
+    if len(set(chars)) == 1:
+        prefix += chars[0]
+    else:
+        break
+
+return prefix
+```
+
+Uses `zip()` to compare the same index across all strings.
+
+
+## Alternative Solution 2 (Sorting)
+
+```python
+strs.sort()
+
+first = strs[0]
+last = strs[-1]
+
+i = 0
+
+while i < len(first) and first[i] == last[i]:
+    i += 1
+
+return first[:i]
+```
+
+After sorting, only the first and last strings need to be compared.
+
+
+## Comparison
+
+| Approach | Time | Space |
+|----------|------|-------|
+| Prefix Reduction | O(n × m) | O(1) |
+| Character Comparison | O(n × m) | O(1) |
+| Sorting | O(n log n × m) | O(1) |
+
+- `n` = number of strings
+- `m` = length of the shortest string
+
+## Pattern Recognition
+
+```text
+Multiple strings?
+
+↓
+
+Need common prefix?
+
+↓
+
+Start with first string
+
+↓
+
+Shrink prefix until all strings match
+```
+
+## Common Mistakes
+
+❌ Forgetting to handle an empty input list.
+
+❌ Comparing entire strings instead of only the prefix.
+
+❌ Not stopping when the prefix becomes empty.
+
+
+## Python Note: `find()`
+
+```python
+word.find(prefix)
+```
+
+Returns:
+
+- `0` → prefix found at the beginning.
+- Positive index → found elsewhere.
+- `-1` → not found.
+
+Example
+
+```python
+"flower".find("flo")      # 0
+"flower".find("low")      # 1
+"flower".find("abc")      # -1
+```
+
+Therefore,
+
+```python
+while word.find(prefix) != 0:
+```
+
+means
+
+> "Keep reducing the prefix until the word starts with it."
+
+
+**Time Complexity:** O(n × m)
+
+**Space Complexity:** O(1)
+
+**Key Learning:**
+The common prefix can only become shorter. Start with the first string and continuously shrink it until every string starts with that prefix.
+
+---
+
+## 27. Remove Element
+
+**Pattern:** Fast & Slow Pointers
+
+**Signal:**
+- Modify the array in-place.
+- Remove specific elements.
+- Preserve the order of remaining elements.
+- Extra space is not allowed.
+
+## Approach
+
+1. Maintain two pointers:
+   - `j` → scans every element (fast pointer).
+   - `i` → points to the next position for a valid element (slow pointer).
+2. If `nums[j]` is not equal to `val`, copy it to `nums[i]`.
+3. Increment `i`.
+4. Return `i` as the new length.
+
+## Visualization
+
+Input
+
+```
+nums = [3,2,2,3]
+val = 3
+```
+
+```
+i = 0
+
+j = 0
+
+3 == val
+
+Skip
+
+------------------
+
+j = 1
+
+2 != val
+
+nums[0] = 2
+
+[2,2,2,3]
+
+i = 1
+
+------------------
+
+j = 2
+
+2 != val
+
+nums[1] = 2
+
+[2,2,2,3]
+
+i = 2
+
+------------------
+
+j = 3
+
+3 == val
+
+Skip
+```
+
+Result
+
+```
+Length = 2
+
+Array
+
+[2,2,...]
+```
+
+## Template
+
+```python
+i = 0
+
+for j in range(len(nums)):
+    if nums[j] != val:
+        nums[i] = nums[j]
+        i += 1
+
+return i
+```
+
+## Actual Solution
+
+```python
+i = 0
+
+for j in range(len(nums)):
+    if nums[j] != val:
+        nums[i] = nums[j]
+        i += 1
+
+return i
+```
+
+## Alternative Solution (Swap with Last Element)
+
+> Order of elements is **not preserved**.
+
+```python
+i = 0
+n = len(nums)
+
+while i < n:
+    if nums[i] == val:
+        nums[i] = nums[n - 1]
+        n -= 1
+    else:
+        i += 1
+
+return n
+```
+
+Useful when preserving order is not required.
+
+## Comparison
+
+| Approach | Time | Space | Preserves Order |
+|----------|------|-------|-----------------|
+| Fast & Slow Pointers | O(n) | O(1) | ✅ |
+| Swap with Last | O(n) | O(1) | ❌ |
+
+
+## Pattern Recognition
+
+```text
+Modify array in-place?
+
+↓
+
+Need to remove elements?
+
+↓
+
+Preserve order?
+
+↓
+
+Fast & Slow Pointers
+```
+
+## Common Mistakes
+
+❌ Using `remove()` repeatedly.
+
+```
+O(n²)
+```
+
+❌ Creating another list.
+
+```
+Extra O(n) space.
+```
+
+❌ Forgetting to return the new length.
+
+
+**Time Complexity:** O(n)
+
+**Space Complexity:** O(1)
+
+**Key Learning:**
+The slow pointer always indicates where the next valid element should be placed, while the fast pointer scans the array exactly once.
+
+---
+
+## 169. Majority Element
+
+**Pattern:** Boyer-Moore Voting Algorithm
+
+**Signal:**
+- One element appears more than half the time.
+- Need O(1) extra space.
+- Frequency counting is possible but not optimal.
+
+## Approach
+
+1. Maintain a candidate and a counter.
+2. If the counter becomes zero, choose the current element as the new candidate.
+3. If the current element equals the candidate, increment the counter.
+4. Otherwise, decrement the counter.
+5. After one pass, the candidate is the majority element.
+
+## Visualization
+
+Input
+
+```
+[2,2,1,1,1,2,2]
+```
+
+```
+Candidate  Count
+
+None       0
+
+2          1
+2          2
+2          1
+2          0
+
+1          1
+1          0
+
+2          1
+```
+
+Answer
+
+```
+2
+```
+
+## Why It Works
+
+Think of each different element as canceling one occurrence of the current candidate.
+
+```
+2 2 1 1 1 2 2
+
+↓
+
+Cancel
+
+2 1
+2 1
+1 2
+
+↓
+
+Remaining
+
+2
+```
+
+Since the majority element appears more than `n / 2` times, it can never be completely canceled.
+
+## Template
+
+```python
+candidate = None
+count = 0
+
+for num in nums:
+
+    if count == 0:
+        candidate = num
+
+    if num == candidate:
+        count += 1
+    else:
+        count -= 1
+
+return candidate
+```
+
+## Actual Solution
+
+```python
+candidate = None
+count = 0
+
+for num in nums:
+    if count == 0:
+        candidate = num
+
+    if num == candidate:
+        count += 1
+    else:
+        count -= 1
+
+return candidate
+```
+
+## Alternative Solution 1 (Hash Map)
+
+```python
+count = {}
+
+for num in nums:
+    count[num] = count.get(num, 0) + 1
+
+    if count[num] > len(nums) // 2:
+        return num
+```
+
+## Alternative Solution 2 (Sorting)
+
+```python
+nums.sort()
+return nums[len(nums) // 2]
+```
+
+## Alternative Solution 3 (Brute Force)
+
+```python
+majority = len(nums) // 2
+
+for num in set(nums):
+    if nums.count(num) > majority:
+        return num
+```
+
+## Comparison
+
+| Approach | Time | Space |
+|----------|------|-------|
+| Brute Force (`count`) | O(n²) | O(1) |
+| Hash Map | O(n) | O(n) |
+| Sorting | O(n log n) | O(1) |
+| Boyer-Moore Voting | **O(n)** | **O(1)** |
+
+## Pattern Recognition
+
+```text
+Majority element (> n/2)?
+
+↓
+
+Need O(1) space?
+
+↓
+
+Boyer-Moore Voting Algorithm
+```
+
+## Common Mistakes
+
+❌ Using `nums.count()` inside a loop.
+
+This makes the solution O(n²).
+
+❌ Forgetting that Boyer-Moore only works when a majority element is guaranteed.
+
+If not guaranteed, verify the candidate with another pass.
+
+
+**Time Complexity:** O(n)
+
+**Space Complexity:** O(1)
+
+**Key Learning:**
+Boyer-Moore Voting Algorithm uses pair cancellation to eliminate non-majority elements, leaving the majority element as the final candidate.
+
+---
