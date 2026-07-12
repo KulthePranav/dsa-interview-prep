@@ -482,3 +482,16 @@ Use a Hash Map to group values by key and Binary Search to efficiently find the 
 Partition both arrays so that the left half contains half of the total elements and every element on the left is less than or equal to every element on the right.
 
 ---
+
+## 1929. Concatenation of Array
+→ Array Traversal
+
+**Signal:**
+- Create a new array from an existing array.
+- Traverse each element once.
+- Use index manipulation.
+
+**Key Learning:**
+Pre-allocate the result array and fill it using calculated indices.
+
+---
