@@ -11,6 +11,10 @@
 - [x] Product of Array Except Self
 - [x] Valid Sudoku
 - [x] Longest Consecutive Sequence
+- [x] Concatenation of Array
+- [x] Longest Common Prefix
+- [x] Remove Element
+- [x] Majority Element
 
 ## Two Pointers
 
