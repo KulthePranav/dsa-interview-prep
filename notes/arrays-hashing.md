@@ -332,3 +332,121 @@ Only begin counting from sequence starts.
 This guarantees each number is processed once.
 
 ---
+
+## 1929. Concatenation of Array
+
+**Pattern:** Array Traversal
+
+**Signal:**
+- Need to create a new array.
+- Elements are copied in a fixed pattern.
+- No extra computation per element.
+
+## Approach
+
+1. Create an array of size `2 * n`.
+2. Traverse the original array.
+3. Place each element at:
+   - Current index
+   - Current index + n
+
+## Visualization
+
+```
+nums
+
+[1,2,1]
+
+n = 3
+
+ans
+
+[_,_,_,_,_,_]
+
+i = 0
+
+[1,_,_,1,_,_]
+
+i = 1
+
+[1,2,_,1,2,_]
+
+i = 2
+
+[1,2,1,1,2,1]
+```
+
+## Template
+
+```python
+n = len(nums)
+ans = [0] * (2 * n)
+
+for i, num in enumerate(nums):
+    ans[i] = num
+    ans[i + n] = num
+```
+
+## Actual Solution
+
+```python
+n = len(nums)
+ans = [0] * (2 * n)
+
+for i, num in enumerate(nums):
+    ans[i] = num
+    ans[i + n] = num
+
+return ans
+```
+
+## Alternative Solution 1 (Pythonic)
+
+```python
+return nums + nums
+```
+
+## Alternative Solution 2
+
+```python
+return nums * 2
+```
+
+Since list multiplication duplicates the list.
+
+## Comparison
+
+| Approach | Time | Space |
+|----------|------|-------|
+| Pre-allocated Array | O(n) | O(n) |
+| `nums + nums` | O(n) | O(n) |
+| `nums * 2` | O(n) | O(n) |
+
+## Pattern Recognition
+
+```text
+Need duplicate array?
+
+↓
+
+Traverse once
+
+↓
+
+Copy using indices
+```
+
+## Common Mistakes
+
+❌ Appending twice inside the loop without pre-allocation (less efficient due to dynamic resizing).
+
+❌ Modifying the original list when a new list is expected.
+
+**Time Complexity:** O(n)
+
+**Space Complexity:** O(n)
+
+**Key Learning:**
+Pre-allocating the result array avoids repeated resizing and makes index-based problems easier to solve.
+
+---
