@@ -495,3 +495,41 @@ Partition both arrays so that the left half contains half of the total elements 
 Pre-allocate the result array and fill it using calculated indices.
 
 ---
+
+## 14. Longest Common Prefix
+→ Prefix Reduction
+
+**Signal:**
+- Multiple strings.
+- Find the common starting substring.
+- Compare prefixes until all strings match.
+
+**Key Learning:**
+Start with the first string as the prefix and keep reducing it until every string begins with that prefix.
+
+---
+
+## 27. Remove Element
+→ Fast & Slow Pointers
+
+**Signal:**
+- Modify an array in-place.
+- Remove or overwrite unwanted elements.
+- Preserve the order of remaining elements.
+
+**Key Learning:**
+Use one pointer to scan the array and another to write valid elements.
+
+---
+
+## 169. Majority Element
+→ Boyer-Moore Voting Algorithm
+
+**Signal:**
+- Majority element appears more than n/2 times.
+- Need O(n) time and O(1) space.
+
+**Key Learning:**
+Cancel out different elements in pairs. The remaining candidate is the majority element.
+
+---
