@@ -1009,3 +1009,431 @@ If not guaranteed, verify the candidate with another pass.
 Boyer-Moore Voting Algorithm uses pair cancellation to eliminate non-majority elements, leaving the majority element as the final candidate.
 
 ---
+
+## 705. Design HashSet
+
+**Pattern:** Hash Table (Separate Chaining)
+
+**Signal:**
+- Design a data structure.
+- Fast lookup, insertion, and deletion.
+- Built-in hash collections are not allowed.
+
+## Approach
+
+1. Create a fixed number of buckets.
+2. Compute the bucket index using:
+
+```python
+index = key % size
+```
+
+3. Store keys inside the corresponding bucket.
+4. Handle collisions using a list (Separate Chaining).
+
+## Visualization
+
+Suppose
+
+```
+size = 5
+```
+
+Keys
+
+```
+12
+7
+17
+22
+```
+
+Bucket indices
+
+```
+12 % 5 = 2
+
+7 % 5 = 2
+
+17 % 5 = 2
+
+22 % 5 = 2
+```
+
+Buckets
+
+```
+0 :
+
+1 :
+
+2 : [12, 7, 17, 22]
+
+3 :
+
+4 :
+```
+
+All keys share the same bucket because they produce the same hash value.
+
+## Hash Function
+
+```python
+index = key % size
+```
+
+Maps every key to one of the available buckets.
+
+## Template
+
+```python
+bucket = buckets[key % size]
+
+if key not in bucket:
+    bucket.append(key)
+```
+
+## Actual Solution
+
+```python
+self.size = 1000
+self.buckets = [[] for _ in range(self.size)]
+```
+
+```python
+bucket = self.buckets[key % self.size]
+```
+
+## Alternative Solution 1 (Boolean Array)
+
+```python
+self.hashset = [False] * 1000001
+
+self.hashset[key] = True
+```
+
+### Pros
+
+- O(1) operations
+- Very simple
+
+### Cons
+
+- Wastes memory
+- Only works when key range is known
+
+## Alternative Solution 2 (Single List)
+
+```python
+self.hashset = []
+
+if key not in self.hashset:
+    self.hashset.append(key)
+```
+
+### Pros
+
+Very easy to understand.
+
+### Cons
+
+Every lookup is O(n).
+
+## Comparison
+
+| Approach | Add | Remove | Contains | Space |
+|----------|-----|---------|-----------|-------|
+| List | O(n) | O(n) | O(n) | O(n) |
+| Boolean Array | O(1) | O(1) | O(1) | O(maxKey) |
+| Bucket Hashing | O(1) Average | O(1) Average | O(1) Average | O(n) |
+
+## Pattern Recognition
+
+```text
+Need to design a hash data structure?
+
+↓
+
+Built-in HashSet not allowed?
+
+↓
+
+Use Hash Table
+
+↓
+
+Handle collisions
+
+↓
+
+Separate Chaining
+```
+
+## Collision
+
+A collision occurs when two different keys map to the same bucket.
+
+Example
+
+```
+12 % 5 = 2
+
+17 % 5 = 2
+```
+
+Both keys are stored in the same bucket.
+
+## Common Mistakes
+
+❌ Using one large list.
+
+```
+Lookup becomes O(n).
+```
+
+❌ Forgetting collision handling.
+
+Different keys can map to the same bucket.
+
+
+❌ Choosing very few buckets.
+
+This increases collisions and slows down operations.
+
+**Time Complexity**
+
+Average
+
+- Add → O(1)
+- Remove → O(1)
+- Contains → O(1)
+
+Worst Case
+
+- O(n)
+
+**Space Complexity**
+
+O(n)
+
+**Key Learning**
+
+A HashSet stores values in buckets using a hash function. Collisions are handled using Separate Chaining, allowing average O(1) operations.
+
+---
+
+## 706. Design HashMap
+
+**Pattern:** Hash Table (Separate Chaining)
+
+**Signal:**
+- Design a key-value data structure.
+- Fast insertion, lookup, and deletion.
+- Built-in dictionaries/maps are not allowed.
+
+## Approach
+
+1. Create a fixed number of buckets.
+2. Compute the bucket index:
+
+```python
+index = key % size
+```
+
+3. Each bucket stores `(key, value)` pairs.
+4. If the key already exists, update its value.
+5. Otherwise, insert a new pair.
+6. Handle collisions using Separate Chaining.
+
+## Visualization
+
+Suppose
+
+```
+size = 5
+```
+
+Operations
+
+```
+put(12, 100)
+put(7, 200)
+put(17, 300)
+```
+
+Bucket index
+
+```
+12 % 5 = 2
+7 % 5 = 2
+17 % 5 = 2
+```
+
+Buckets
+
+```
+0 :
+
+1 :
+
+2 : [(12,100), (7,200), (17,300)]
+
+3 :
+
+4 :
+```
+
+All three keys share the same bucket.
+
+## Updating Existing Key
+
+```
+put(7, 500)
+```
+
+Bucket becomes
+
+```
+[(12,100), (7,500), (17,300)]
+```
+
+The old value is replaced.
+
+## Hash Function
+
+```python
+index = key % size
+```
+
+Maps every key into a bucket.
+
+## Template
+
+```python
+bucket = buckets[key % size]
+
+for i, (k, v) in enumerate(bucket):
+    if k == key:
+        bucket[i] = (key, value)
+        return
+
+bucket.append((key, value))
+```
+
+## Actual Solution
+
+```python
+self.size = 1000
+self.buckets = [[] for _ in range(self.size)]
+```
+
+## Alternative Solution 1 (Large Array)
+
+```python
+self.map = [-1] * 1000001
+
+self.map[key] = value
+```
+
+### Pros
+
+- O(1) operations
+- Very simple
+
+### Cons
+
+- Very high memory usage
+- Requires known key range
+
+
+## Alternative Solution 2 (List of Pairs)
+
+```python
+self.map = []
+
+for i, (k, v) in enumerate(self.map):
+    if k == key:
+        self.map[i] = (key, value)
+```
+
+### Pros
+
+Simple implementation.
+
+### Cons
+
+Every operation is O(n).
+
+## Comparison
+
+| Approach | Put | Get | Remove | Space |
+|----------|-----|-----|--------|-------|
+| List | O(n) | O(n) | O(n) | O(n) |
+| Large Array | O(1) | O(1) | O(1) | O(maxKey) |
+| Bucket Hashing | O(1) Average | O(1) Average | O(1) Average | O(n) |
+
+## Pattern Recognition
+
+```text
+Need key-value storage?
+
+↓
+
+Built-in HashMap not allowed?
+
+↓
+
+Hash Function
+
+↓
+
+Buckets
+
+↓
+
+Separate Chaining
+```
+
+## Collision
+
+A collision occurs when multiple keys map to the same bucket.
+
+Example
+
+```
+12 % 5 = 2
+17 % 5 = 2
+22 % 5 = 2
+```
+
+Store them together inside the bucket.
+
+## Common Mistakes
+
+❌ Appending duplicate keys instead of updating.
+
+❌ Forgetting to search for the key before insertion.
+
+❌ Removing the wrong element after a collision.
+
+## Time Complexity
+
+Average
+
+- Put → O(1)
+- Get → O(1)
+- Remove → O(1)
+
+Worst Case
+
+- O(n)
+
+## Space Complexity
+
+O(n)
+
+## Key Learning
+
+A HashMap stores `(key, value)` pairs inside buckets. Collisions are resolved using Separate Chaining, providing average O(1) insertion, lookup, and deletion.
+
+---
