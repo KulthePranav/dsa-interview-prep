@@ -15,6 +15,8 @@
 - [x] Longest Common Prefix
 - [x] Remove Element
 - [x] Majority Element
+- [x] Design Hashset
+- [x] Design HashMap
 
 ## Two Pointers
 
