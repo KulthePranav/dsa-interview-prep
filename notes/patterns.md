@@ -533,3 +533,29 @@ Use one pointer to scan the array and another to write valid elements.
 Cancel out different elements in pairs. The remaining candidate is the majority element.
 
 ---
+
+## 705. Design HashSet
+→ Hash Table (Separate Chaining)
+
+**Signal:**
+- Implement a hash-based data structure.
+- Support add, remove, and contains operations.
+- Avoid using built-in HashSet.
+
+**Key Learning:**
+Use a hash function to map keys into buckets and handle collisions using separate chaining.
+
+---
+
+## 706. Design HashMap
+→ Hash Table (Separate Chaining)
+
+**Signal:**
+- Implement a hash map from scratch.
+- Support put, get, and remove operations.
+- Built-in HashMap is not allowed.
+
+**Key Learning:**
+Store (key, value) pairs in buckets and resolve collisions using separate chaining.
+
+---
