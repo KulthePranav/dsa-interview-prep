@@ -559,3 +559,15 @@ Use a hash function to map keys into buckets and handle collisions using separat
 Store (key, value) pairs in buckets and resolve collisions using separate chaining.
 
 ---
+
+## 680. Valid Palindrome II
+→ Two Pointers + Greedy
+
+**Signal:**
+- Check if a string can become a palindrome.
+- At most one modification/deletion is allowed.
+
+**Key Learning:**
+When the first mismatch occurs, try skipping either the left or right character and verify the remaining substring.
+
+---
