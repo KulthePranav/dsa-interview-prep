@@ -571,3 +571,15 @@ Store (key, value) pairs in buckets and resolve collisions using separate chaini
 When the first mismatch occurs, try skipping either the left or right character and verify the remaining substring.
 
 ---
+
+## 1768. Merge Strings Alternately
+→ Two Pointers / Parallel Traversal
+
+**Signal:**
+- Traverse two sequences simultaneously.
+- Merge elements in alternating order.
+
+**Key Learning:**
+Use parallel traversal with boundary checks to merge two sequences efficiently.
+
+---
