@@ -18,7 +18,7 @@ A structured collection of Data Structures & Algorithms solutions, notes, and in
 | Topic | Solved | Code | Notes |
 |--------|:------:|:----:|:-----:|
 | Arrays & Hashing | 15 | [📂 Folder](./Arrays-Hashing/) | [📝 Notes](./notes/arrays-hashing.md) |
-| Two Pointers | 6 | [📂 Folder](./Two-Pointers/) | [📝 Notes](./notes/two-pointers.md) |
+| Two Pointers | 7 | [📂 Folder](./Two-Pointers/) | [📝 Notes](./notes/two-pointers.md) |
 | Sliding Window | 6 | [📂 Folder](./Sliding-Window/) | [📝 Notes](./notes/sliding-window.md) |
 | Stack | 6 | [📂 Folder](./Stack/) | [📝 Notes](./notes/stack.md) |
 | Binary Search | 7 | [📂 Folder](./Binary-Search/) | [📝 Notes](./notes/binary-search.md) |
