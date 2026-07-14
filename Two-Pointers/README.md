@@ -9,6 +9,8 @@
 | 5 | Trapping Rain Water | Hard | Two Pointers |
 | 6 | Reverse String | Easy | In-place Swapping |
 | 7 | Valid Palindrome II | Easy | Two Pointers + Greedy |
+| 8 | Merge Strings Alternately | Easy | Two Pointers / Parallel Traversal |
+
 
 ## Concepts
 
@@ -16,6 +18,7 @@
 - Two Pointers
 - Opposite Two Pointers
 - Fast & Slow Pointers
+- Parallel Traversal
 - Left & Right Pointer Movement
 - In-place Swapping
 
