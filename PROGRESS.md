@@ -27,7 +27,7 @@
 - [x] Trapping Rain Water
 - [x] Reverse String
 - [x] Valid Palindrome II
-
+- [x] Merge Strings Alternately
 
 ## Sliding Window
 
