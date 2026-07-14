@@ -913,3 +913,178 @@ skip right
 Only the first mismatch matters. After it occurs, there are exactly two possibilities: remove the left character or remove the right character.
 
 ---
+
+## 1768. Merge Strings Alternately
+
+**Pattern:** Two Pointers / Parallel Traversal
+
+**Signal:**
+- Merge two strings.
+- Alternate characters from each string.
+- One string may be longer than the other.
+
+## Approach
+
+1. Traverse both strings simultaneously.
+2. Append a character from `word1` if available.
+3. Append a character from `word2` if available.
+4. Continue until the longer string is exhausted.
+5. Join the character list into the final string.
+
+## Visualization
+
+```
+word1 = "abc"
+word2 = "pqrs"
+
+i = 0
+
+a + p
+
+↓
+
+b + q
+
+↓
+
+c + r
+
+↓
+
+s
+
+Result
+
+"apbqcrs"
+```
+
+## Template
+
+```python
+result = []
+
+for i in range(max(len(word1), len(word2))):
+    if i < len(word1):
+        result.append(word1[i])
+
+    if i < len(word2):
+        result.append(word2[i])
+
+return "".join(result)
+```
+
+
+## Actual Solution
+
+```python
+class Solution:
+    def mergeAlternately(self, word1: str, word2: str) -> str:
+        n = len(word1)
+        m = len(word2)
+
+        result = []
+
+        for i in range(max(n, m)):
+            if i < n:
+                result.append(word1[i])
+
+            if i < m:
+                result.append(word2[i])
+
+        return "".join(result)
+```
+
+
+## Alternative Solution (Two Pointers)
+
+```python
+class Solution:
+    def mergeAlternately(self, word1: str, word2: str) -> str:
+        i = j = 0
+        result = []
+
+        while i < len(word1) or j < len(word2):
+
+            if i < len(word1):
+                result.append(word1[i])
+                i += 1
+
+            if j < len(word2):
+                result.append(word2[j])
+                j += 1
+
+        return "".join(result)
+```
+
+## Comparison
+
+| Approach | Time | Space |
+|----------|------|-------|
+| For Loop + Boundary Check | O(n + m) | O(n + m) |
+| Two Pointers | O(n + m) | O(n + m) |
+
+
+## Pattern Recognition
+
+```text
+Need to merge two sequences?
+
+↓
+
+Take one element from each alternately?
+
+↓
+
+One sequence may finish first?
+
+↓
+
+Continue adding remaining elements.
+```
+
+## Common Mistakes
+
+❌ Iterating only up to `min(len(word1), len(word2))`.
+
+Remaining characters will be lost.
+
+---
+
+❌ Building strings using `+=`.
+
+```python
+result += ch
+```
+
+Repeated string concatenation is less efficient because strings are immutable.
+
+Prefer:
+
+```python
+result.append(ch)
+
+"".join(result)
+```
+
+❌ Forgetting boundary checks.
+
+Always verify:
+
+```python
+if i < len(word1)
+
+if i < len(word2)
+```
+
+**Time Complexity:** O(n + m)
+
+**Space Complexity:** O(n + m)
+
+where:
+- `n = len(word1)`
+- `m = len(word2)`
+
+**Key Learning:**
+When traversing two sequences together, use parallel traversal with boundary checks. Store characters in a list and use `"".join()` to efficiently construct the final string.
+
+---
