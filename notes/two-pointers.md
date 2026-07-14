@@ -712,3 +712,204 @@ Swap until pointers meet
 When an array or string needs to be reversed in-place, use two pointers moving toward the center while swapping elements.
 
 ---
+
+## 680. Valid Palindrome II
+
+**Pattern:** Two Pointers + Greedy
+
+**Signal:**
+- Check whether a string is a palindrome.
+- One deletion is allowed.
+- Need an O(n) solution.
+
+## Approach
+
+1. Initialize two pointers:
+   - `l` at the beginning.
+   - `r` at the end.
+2. Move both pointers inward while characters match.
+3. On the first mismatch:
+   - Skip the left character and check if the remaining substring is a palindrome.
+   - Skip the right character and check if the remaining substring is a palindrome.
+4. If either check succeeds, return `True`.
+5. Otherwise, return `False`.
+
+## Visualization
+
+Input
+
+```
+"abca"
+```
+
+```
+a == a
+
+↓
+
+b != c
+
+↓
+
+Skip left
+
+aca
+
+✓
+
+OR
+
+Skip right
+
+aba
+
+✓
+```
+
+Answer
+
+```
+True
+```
+
+## Template
+
+```python
+def is_palindrome(l, r):
+    while l < r:
+        if s[l] != s[r]:
+            return False
+        l += 1
+        r -= 1
+    return True
+
+l, r = 0, len(s) - 1
+
+while l < r:
+    if s[l] != s[r]:
+        return (
+            is_palindrome(l + 1, r) or
+            is_palindrome(l, r - 1)
+        )
+
+    l += 1
+    r -= 1
+
+return True
+```
+
+## Actual Solution
+
+```python
+class Solution:
+    def validPalindrome(self, s: str) -> bool:
+
+        def is_palindrome(l, r):
+            while l < r:
+                if s[l] != s[r]:
+                    return False
+                l += 1
+                r -= 1
+            return True
+
+        l, r = 0, len(s) - 1
+
+        while l < r:
+            if s[l] != s[r]:
+                return (
+                    is_palindrome(l + 1, r) or
+                    is_palindrome(l, r - 1)
+                )
+
+            l += 1
+            r -= 1
+
+        return True
+```
+
+## Alternative Solution (Recursive)
+
+```python
+class Solution:
+    def validPalindrome(self, s: str) -> bool:
+
+        def dfs(l, r, deleted):
+            while l < r:
+                if s[l] != s[r]:
+                    if deleted:
+                        return False
+
+                    return (
+                        dfs(l + 1, r, True) or
+                        dfs(l, r - 1, True)
+                    )
+
+                l += 1
+                r -= 1
+
+            return True
+
+        return dfs(0, len(s) - 1, False)
+```
+
+The recursive solution is elegant but uses recursion stack space.
+
+## Comparison
+
+| Approach | Time | Space |
+|----------|------|-------|
+| Two Pointers + Helper | O(n) | O(1) |
+| Recursive | O(n) | O(n) |
+
+## Pattern Recognition
+
+```text
+Palindrome?
+
+↓
+
+One deletion allowed?
+
+↓
+
+First mismatch?
+
+↓
+
+Skip left OR Skip right
+
+↓
+
+Check remaining substring
+```
+
+## Common Mistakes
+
+❌ Trying every possible deletion.
+
+```
+O(n²)
+```
+
+❌ Continuing after the first mismatch.
+
+Only one deletion is allowed.
+
+❌ Forgetting to check both possibilities.
+
+```python
+skip left
+
+OR
+
+skip right
+```
+
+**Time Complexity:** O(n)
+
+**Space Complexity:** O(1)
+
+**Key Learning:**
+Only the first mismatch matters. After it occurs, there are exactly two possibilities: remove the left character or remove the right character.
+
+---
